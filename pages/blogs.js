@@ -20,6 +20,7 @@ import {getAllBlogsData} from "../lib/mdxApi";
 
 export default function Blog({allSortedBlogs}){
 	const [searchValue,setSearchValue] = useState("");
+console.log(allSortedBlogs);
 	 const filteredBlogs = allSortedBlogs.filter((blog,index) => {
 	 		return blog.title.toLowerCase().includes(searchValue.toLowerCase());
 	 });
@@ -75,7 +76,10 @@ export default function Blog({allSortedBlogs}){
 }
 
 export async function getStaticProps() {
-	const allSortedBlogs = await getAllBlogsData();
+	let allSortedBlogs = await getAllBlogsData();
+	if(allSortedBlogs.length && allSortedBlogs[0].slug === '.DS_Store') {
+		allSortedBlogs = allSortedBlogs.splice(1);
+	}
 	return {
 		props:{
 			allSortedBlogs
