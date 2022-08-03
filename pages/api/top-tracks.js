@@ -1,5 +1,5 @@
 import {getTopTracks} from "../../lib/spotify";
-export default async (_,res) => {
+export default async function handler(_,res) {
 	const response = await getTopTracks();
 
 	if(response.status === 204 || response.status > 400){

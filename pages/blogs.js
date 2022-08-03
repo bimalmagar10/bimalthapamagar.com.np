@@ -33,7 +33,7 @@ export default function Blog({allSortedBlogs}){
             <VStack align="flex-start" mb="2rem">
                 <Heading fontSize="3rem" fontFamily="inherit" mb="1rem">Blogs-Bimal Thapa Magar</Heading>
                 <Text fontSize="1.6rem">
-	                I've written about 15 blogs till now in this site.I hope each one of 
+	                I&apos;ve written about 15 blogs till now in this site.I hope each one of 
 	                them may be useful to you in some ways.Feel free to read them by searching
 	                all those with the following search field.
                 </Text>
