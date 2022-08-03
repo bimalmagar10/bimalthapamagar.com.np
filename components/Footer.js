@@ -1,6 +1,6 @@
 import {SimpleGrid,Link as LinkItem,useColorModeValue} from "@chakra-ui/react";
 import Link from "next/link";
-import {GridItems} from "../utils.js";
+import {GridItems} from "../lib/helpers";
 const Footer = () => {
     const linkColor = useColorModeValue("grayish","gray.400");
 	return (

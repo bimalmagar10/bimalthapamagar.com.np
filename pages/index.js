@@ -1,43 +1,52 @@
-import Image from "next/image";
+import Head from "next/head";
 import Footer from '../components/Footer';
 import FeaturedPosts from '../components/FeaturedPosts';
 import Header from "../components/Header";
 import Link from "next/link";
+import Layout from "../components/Layout";
 import {
-  Container,
   Flex,
-  HStack,
   VStack,
   Text,
   Heading,
-  FormControl,
-  FormLabel,
-  Input,
-  Button,
   Divider,
-  SimpleGrid,
-  Link as LinkItem,
-  Tag,
-  TagLabel,
-  TagLeftIcon,
   Box,
-  Spacer,
-  Image as ChakraImage,
   useColorModeValue
 } from "@chakra-ui/react";
+import ProfileImage from "../components/ProfileImage";
+import MyTopTracks from "../components/MyTopTracks";
+
 export default function Home() {
   const imgBorder = useColorModeValue("gray.800","lightwhite");
   const navColor = useColorModeValue("rgba(255, 255, 255, 0.8)","rgba(26, 34, 44,.8)");
+
   return (
-    <Container maxW="80rem">
+    <>
+      <Head>
+        <title>Home</title>
+      </Head>
       <Header/>
       <Flex mb="4rem">
         <VStack spacing="3rem">
           <Flex align="center" justify="space-between" width="100%">
-              <Heading fontSize="4.5rem" w="100%" textAlign="left" fontFamily="inherit">Hi!👋 I&rsquo;m Bibek.</Heading>
-              <ChakraImage src="/images/profile.jpg" alt="Bimal Thapa Magar" borderRadius="full" boxSize="100px" borderWidth="2px" borderStyle="solid" borderColor={imgBorder}/>
+              <Heading fontSize="4.5rem" zIndex="100" w="100%" textAlign="left" fontFamily="inherit">
+                Hi!👋 I&rsquo;m <Text  position="relative" sx={{
+                  ":after":{
+                    content:'""',
+                    position:"absolute",
+                    height:"1rem",
+                    width:"calc(100% + 10px)",
+                    left:"-5%",
+                    bottom:"10%",
+                    background:"#ffc725",
+                    zIndex:-1
+                  },
+                  display:"inline-block",
+                }}>Bimal.</Text>
+              </Heading>
+               <ProfileImage/>
           </Flex>
-          <Text fontSize="1.6rem">
+          <Text fontSize="1.7rem">
             My name is Bimal Thapa Magar.Currently,I’m based in Pokhara,Nepal.
             I am also an engineering ungraduate and currently,at my last year 
             of my road towards pursuing my first ever bachelors degree in 
@@ -47,14 +56,15 @@ export default function Home() {
           </Text>
         </VStack>
       </Flex>
-      <FeaturedPosts/>
+      {/******
+        ****** WILL ADD THIS FEATUREdPOSTS FEATURE LATER
+        *****<FeaturedPosts/>
+        ******
+        *******/
+      }
+      <MyTopTracks/>
       <Divider mt="1rem"/>
-      <HStack p="1rem 0">
-         <Image src="/spotify-1.svg" alt="Spotify Icon" width="80" height="80"/>
-         <Text fontSize="1.6rem" fontWeight="700">- Not Playing</Text>
-      </HStack>
-      <Footer/>
-    </Container>
+    </>
   )
 }
 

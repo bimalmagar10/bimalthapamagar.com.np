@@ -44,12 +44,8 @@ const MobileNav = () => {
 					    		Blogs
 					    		<Divider/>
 					    	</Link>
-					        <Link href="/contact" mb="2rem">
-					    		Contact
-					    		<Divider/>
-					    	</Link>
-					    	<Link href="/works" mb="2rem">
-					    		Works
+					        <Link href="/about-me" mb="2rem">
+					    		About Me
 					    		<Divider/>
 					    	</Link>
 				    	</Flex>

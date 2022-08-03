@@ -1,28 +1,34 @@
+import {useState} from "react";
 import Header from "../components/Header";
-import Footer from "../components/Footer";
-import Image from "next/image";
+import Head from "next/head";
 import {
-	Container,
-	Divider,
-	HStack,
 	Text,
 	Heading,
 	VStack,
 	Box,
-	Link,
-	Button,
+	InputGroup,
+	InputRightElement,
 	Input,
-	IconButton,
-	useColorModeValue
+	useColorModeValue,
+	Icon,
+	Alert,
+	Center
 } from "@chakra-ui/react";
-import {ArrowForwardIcon,SearchIcon} from "@chakra-ui/icons";
+import {SearchIcon,WarningIcon} from "@chakra-ui/icons";
 import PostItemOverlay from "../components/PostItemOverlay";
-
 import {getAllBlogsData} from "../lib/mdxApi";
 
 export default function Blog({allSortedBlogs}){
+	const [searchValue,setSearchValue] = useState("");
+	 const filteredBlogs = allSortedBlogs.filter((blog,index) => {
+	 		return blog.title.toLowerCase().includes(searchValue.toLowerCase());
+	 });
+
 	return(
-        <Container maxW="80rem">
+        <>
+            <Head>
+            	<title>Blogs</title>
+            </Head>
             <Header/>
             <VStack align="flex-start" mb="2rem">
                 <Heading fontSize="3rem" fontFamily="inherit" mb="1rem">Blogs-Bimal Thapa Magar</Heading>
@@ -33,29 +39,38 @@ export default function Blog({allSortedBlogs}){
                 </Text>
             </VStack>
             <Box p=".2rem" rounded="lg">
-	            <VStack position="relative">
-	            	<Input placeholder="Search posts" fontSize="1.4rem" p="2rem 1rem"/>
-	                <IconButton aria-label="Search Posts" icon={<SearchIcon/>} position="absolute" top="37%" right=".8rem" transform="translate(0,-50%)" fontSize="2rem" p="1.5rem 2rem" colorScheme="twitter"/>
-	            </VStack>
+	        	<InputGroup>
+			      <Input
+			        p="2rem 2rem"
+			        type="text"
+			        fontSize="1.4rem"
+			        placeholder="Search posts"
+			        onChange={(e) => setSearchValue(e.target.value)}
+			      />
+			      <InputRightElement top=".85rem" right="1rem">
+			         <Icon as={SearchIcon}/>
+			      </InputRightElement>
+				</InputGroup>
             </Box>
             <Heading fontSize="2.5rem" fontFamily="inherit" m="2rem 0">All Posts</Heading>
-            
+            {!filteredBlogs.length && <>
+            	<Center>
+	            	<Alert status="error">
+	            	<WarningIcon mr="1rem" color="crimson"/>No Posts Found!</Alert>
+	            </Center>
+            	</>}
             {
-            	allSortedBlogs.map((blog,index) => (
-            		<PostItemOverlay 
-            		   key={index}
-            		   slug={blog.slug}
-                       title={blog.title}
-                       date={blog.date}
-            		/>
+            	filteredBlogs.map((blog,idx) => (
+            			<PostItemOverlay 
+	            		   key={idx}
+	            		   slug={blog.slug}
+	                       title={blog.title}
+	                       date={blog.date}
+	                       summary={blog.shortTheme}
+	            		/>
             	))
             }
-			<HStack p="1rem 0">
-		         <Image src="/spotify-1.svg" alt="Spotify Icon" width="80" height="80"/>
-		         <Text fontSize="1.6rem" fontWeight="700">- Not Playing</Text>
-	        </HStack>
-          <Footer/>
-        </Container>
+        </>
 	);
 }
 
