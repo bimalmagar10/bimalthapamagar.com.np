@@ -34,7 +34,7 @@ export default function Blog({mdxSource,matters}){
       			<VStack align="flex-start" mb="2rem">
       				<Heading fontSize="4.5rem" fontFamily="inherit">{matters.title}</Heading>
       				<HStack align="center" fontSize="1.6rem">
-      					<ChakraImage mr=".5rem" src="/images/profile.jpg" alt="Bimal Thapa Magar" borderRadius="full" boxSize="40px"/>
+      					<ChakraImage mr=".5rem" src="/images/profile.jpg" objectFit="cover" alt="Bimal Thapa Magar" borderRadius="full" boxSize="40px"/>
       					<Text>Bimal Thapa Magar</Text>
       					<Text p="0 .3rem 0 .5rem" color="gray.500">{timeFormatter(matters.date,matters.time)} ago</Text>
       					<Text fontSize="3rem">&#8901;</Text>

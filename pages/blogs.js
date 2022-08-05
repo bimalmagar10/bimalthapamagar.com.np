@@ -20,7 +20,6 @@ import {getAllBlogsData} from "../lib/mdxApi";
 
 export default function Blog({allSortedBlogs}){
 	const [searchValue,setSearchValue] = useState("");
-console.log(allSortedBlogs);
 	 const filteredBlogs = allSortedBlogs.filter((blog,index) => {
 	 		return blog.title.toLowerCase().includes(searchValue.toLowerCase());
 	 });
@@ -34,9 +33,9 @@ console.log(allSortedBlogs);
             <VStack align="flex-start" mb="2rem">
                 <Heading fontSize="3rem" fontFamily="inherit" mb="1rem">Blogs-Bimal Thapa Magar</Heading>
                 <Text fontSize="1.6rem">
-	                I&apos;ve written about 15 blogs till now in this site.I hope each one of 
-	                them may be useful to you in some ways.Feel free to read them by searching
-	                all those with the following search field.
+	                I&apos;ve written these blogs that might help you excel some of the skills,
+	                you lack.Therefore,feel free to read them by searching topics of your
+	                interest that might me complementary with mine.
                 </Text>
             </VStack>
             <Box p=".2rem" rounded="lg">

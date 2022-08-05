@@ -2,7 +2,6 @@ import Head from "next/head";
 import Footer from '../components/Footer';
 import FeaturedPosts from '../components/FeaturedPosts';
 import Header from "../components/Header";
-import Link from "next/link";
 import Layout from "../components/Layout";
 import {
   Flex,
@@ -11,7 +10,8 @@ import {
   Heading,
   Divider,
   Box,
-  useColorModeValue
+  useColorModeValue,
+  Link
 } from "@chakra-ui/react";
 import ProfileImage from "../components/ProfileImage";
 import MyTopTracks from "../components/MyTopTracks";
@@ -46,13 +46,13 @@ export default function Home() {
               </Heading>
                <ProfileImage/>
           </Flex>
-          <Text fontSize="1.7rem">
-            My name is Bimal Thapa Magar.Currently,I’m based in Pokhara,Nepal.
-            I am also an engineering ungraduate and currently,at my last year 
-            of my road towards pursuing my first ever bachelors degree in 
-            Electronics and Communication engineering.I describe myself as a learner,
-            ReactJs enthusiast and a music lover who always wants to play a guitar 
-            whenever available.
+          <Text fontSize="1.7rem" lineHeight="1.6">
+            My name is Bimal Thapa Magar.Currently,I’m based in Kathmandu,Nepal.
+            I am an electronics and communication engineer,web developer and a ReactJS
+            enthusiast.I can build scalable web applications and is always ready to
+            work with whoever does invite me for collaboration.Don&rsquo;t forget to check 
+            out the naivete blogs that I have written in my site <Link href="/blogs" color="blue.400">here</Link>.Besides that, I am enamored of 
+            music:like to play guitar most of the time when I am not coding.
           </Text>
         </VStack>
       </Flex>
