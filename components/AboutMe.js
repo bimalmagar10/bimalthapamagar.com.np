@@ -16,18 +16,20 @@ const AboutMe = () => {
 	const skillsColor = useColorModeValue('#086F83','#9DECF9');
 	return (
 		<>
-			<Text fontSize="1.6rem" mb="4rem">
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-				sed do eiusmod tempor incididunt ut labore et dolore magna
-				aliqua. Aenean sed adipiscing diam donec adipiscing tristique 
-				risus nec feugiat. Gravida dictum fusce ut placerat orci 
-				nulla pellentesque. Enim sed faucibus turpis in eu. Id neque 
-				aliquam vestibulum morbi blandit cursus risus. Senectus et netus 
-				et malesuada fames ac turpis egestas. Purus non enim praesent 
-				elementum. Amet cursus sit amet dictum. Vestibulum rhoncus est 
-				pellentesque elit ullamcorper dignissim cras tincidunt lobortis.
-				At risus viverra adipiscing at. Arcu cursus euismod quis viverra 
-				nibh cras. Dui nunc mattis enim ut tellus elementum sagittis vitae. 
+			<Text fontSize="1.6rem" mb="4rem" lineHeight="1.8">
+				It&rsquo;s good to know that you reached an energetic,diligent, and the most
+				jovial engineer,who is always keen to learn new things, that fickles in the
+				world of technology.I have an enthusiasm, which I hope will always be steady
+				till I die,in programming and solving the problems–mostly of data structures and 
+				algorithms–logically.I can build scalable applications as per your need.Reminiscing
+				about how I developed interests towards this era of programming,the first
+				programming language I learned was C–archaic though nifty.After some years
+				of programming in C,during my university,I learned C++ –– object oriented,have 
+				more features than in archaic C –– to go beyond my limitations.Then after my interests
+				were indulged into Web fundamentals:I learned Javascript.Hitherto,I can work
+				in Node,Express,Git,Github,SASS,CSS,Figma,and Chakra UI.I know laravel a bit too.
+				Consequently,my anxiety and enthusiasm towards programming is inevitable;no matter
+				what barriers conveys my limitations.
 			</Text>
 			<Flex justify="space-between" align="center" mb="4rem">
 				<Heading fontSize="2.5rem" letterSpacing="1px">Skills</Heading>
