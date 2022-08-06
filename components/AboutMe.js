@@ -16,7 +16,10 @@ const AboutMe = () => {
 	const skillsColor = useColorModeValue('#086F83','#9DECF9');
 	return (
 		<>
-			<Text fontSize="1.6rem" mb="4rem" lineHeight="1.8">
+			<Text fontSize="1.6rem" mb="4rem" lineHeight="1.8" textAlign="justify" sx={{
+				textJustify:"inter-word",
+				hyphens:"auto"
+			}}>
 				It&rsquo;s good to know that you reached an energetic,diligent, and the most
 				jovial engineer,who is always keen to learn new things, that fickles in the
 				world of technology.I have an enthusiasm, which I hope will always be steady

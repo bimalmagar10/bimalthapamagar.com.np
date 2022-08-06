@@ -46,7 +46,10 @@ export default function Home() {
               </Heading>
                <ProfileImage/>
           </Flex>
-          <Text fontSize="1.7rem" lineHeight="1.6">
+          <Text fontSize="1.7rem" lineHeight="1.6" textAlign="justify" sx={{
+            textJustify:"inter-word",
+            hyphens:"auto"
+          }}>
             My name is Bimal Thapa Magar.Currently,I’m based in Kathmandu,Nepal.
             I am an electronics and communication engineer,web developer and a ReactJS
             enthusiast.I can build scalable web applications and is always ready to
