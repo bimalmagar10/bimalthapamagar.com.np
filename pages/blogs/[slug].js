@@ -59,7 +59,12 @@ export default function Blog({mdxSource,matters}){
       			  <Icon transition ="all .4s ease" as={ChevronLeftIcon} h={19} w={19} color={backBtnColor}/>
       			  <Box transition ="all .4s ease" ml="-5px" fontSize="1.6rem" display="inline-block" color={backBtnColor}>Back</Box>
       			</Link>
-      			<Box p="2.5rem 1.5rem">
+      			<Box p="2.5rem 1.5rem" textAlign="justify" sx={
+      				{
+      					"textJustify":"inter-word",
+      					"hyphens":"auto"
+      				}
+      			}>
       				<Text fontSize="1.8rem" mb="3rem">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{matters.shortTheme}</Text>
       				<MDXRemote {...mdxSource} components={MDXComponents}/>
       			</Box>
