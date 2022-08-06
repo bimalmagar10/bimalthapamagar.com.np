@@ -23,7 +23,10 @@ const MyTopTracks = () => {
 	return (
 		<>
 			<Heading fontSize="2.5rem" mb="1rem">My Top Ten Tracks on Spotify</Heading>
-			<Text fontSize="1.7rem" mb="3rem" lineHeight="1.6">
+			<Text fontSize="1.7rem" mb="3rem" lineHeight="1.6" textAlign="justify" sx={{
+				textJustify:"inter-word",
+				hyphens:"auto"
+			}}>
 				Are you curious about what kind of songs that I mostly listen?
 				These are the top ten tracks, that I usually listen, while I&apos;m coding,
 				on Spotify.Know my quotidian tracks and try listening them, while you
