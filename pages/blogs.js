@@ -23,6 +23,7 @@ export default function Blog({allSortedBlogs}){
 	 const filteredBlogs = allSortedBlogs.filter((blog,index) => {
 	 		return blog.title.toLowerCase().includes(searchValue.toLowerCase());
 	 });
+	 console.log(filteredBlogs);
 
 	return(
         <>
@@ -79,9 +80,9 @@ export default function Blog({allSortedBlogs}){
 
 export async function getStaticProps() {
 	let allSortedBlogs = await getAllBlogsData();
-	if(allSortedBlogs.length && allSortedBlogs[0].slug === '.DS_Store') {
-		allSortedBlogs = allSortedBlogs.splice(1);
-	}
+	 if(allSortedBlogs.length && (allSortedBlogs[0].slug === '.DS_Store')) {
+	 	allSortedBlogs = allSortedBlogs.splice(1);
+	 }
 	return {
 		props:{
 			allSortedBlogs
