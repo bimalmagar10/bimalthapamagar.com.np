@@ -29,6 +29,10 @@ export default function Blog({mdxSource,matters}){
       		<>
       		    <Head>
       		    	<title>{"Blog" + "-" + matters.title.split(" ").slice(0,4).join(" ") + "....."}</title>
+      		    	<meta name="description" content={`Get to know about ${matters.title}`}/>
+        			<meta property="og:title" content={`Blog about ${matters.title}`}/>
+        			<meta property="og:description" content={`Read this blog about ${matters.title}`}/>
+        			<meta property="og:type" content="article"/>
       		    </Head>
       			<Header/>
       			<VStack align="flex-start" mb="2rem">

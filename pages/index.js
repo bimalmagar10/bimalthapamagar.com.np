@@ -24,6 +24,9 @@ export default function Home() {
     <>
       <Head>
         <title>Home</title>
+        <meta name="description" content="Welcome to my site.I'm Bimal Thapa Magar and I am ReactJS enthusiast, Electronics and Communication Engineer and a guitar player."/>
+        <meta property="og:title" content="ReactJS Developer, Engineer and Knowledge Seeker"/>
+        <meta property="og:description" content="Hi, I'm Bimal Thapa Magar and I am ReactJS enthusiast, Electronics and Communication Engineer and a guitar player."/>
       </Head>
       <Header/>
       <Flex mb="4rem">

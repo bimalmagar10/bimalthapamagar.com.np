@@ -21,6 +21,9 @@ export default function Contact(){
 		<>
 		    <Head>
 		    	<title>About Me</title>
+		    	<meta name="description" content="Bimal Thapa Magar's about me page describes about what his skills are and what tech stacks he is proficient in."/>
+        		<meta property="og:title" content="Bimal Thapa Magar's About Me Page"/>
+        		<meta property="og:description" content="This is Bimal Thapa Magar's about me page with his relevant skills and describing about who he really is."/>
 		    </Head>
 		    <Header/>
 			<Flex direction="row" align="center" mb="3rem">

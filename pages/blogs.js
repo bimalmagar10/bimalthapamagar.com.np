@@ -28,6 +28,9 @@ export default function Blog({allSortedBlogs}){
         <>
             <Head>
             	<title>Blogs</title>
+            	<meta name="description" content="Welcome to Bimal Thapa Magar's Blog.These are the blogs you must read and know."/>
+        		<meta property="og:title" content="Bimal Thapa Magar's Blog"/>
+        		<meta property="og:description" content="I have written these blogs and that they will help you to learn something new."/>
             </Head>
             <Header/>
             <VStack align="flex-start" mb="2rem">

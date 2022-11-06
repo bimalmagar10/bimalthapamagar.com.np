@@ -6,6 +6,9 @@ const Works = () => {
 		<>
 		<Head>
             	<title>Works</title>
+            	<meta name="description" content="Welcome! This is Bimal Thapa Magar's page about his works.It demonstrates what work he has done or accomplished and the projects he had built using various tech stacks."/>
+        		<meta property="og:title" content="Bimal Thapa Magar's Works Page"/>
+        		<meta property="og:description" content="Bimal Thapa Magar's works page illustrates about what kind of projects he has completed."/>
         </Head>
         <Header/>
         <Box height="20rem" 
