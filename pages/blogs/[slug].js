@@ -24,7 +24,6 @@ import {timeFormatter} from "../../lib/helpers";
 
 
 export default function Blog({mdxSource,matters}){
-	console.log(mdxSource,matters);
 	  const backBtnColor = useColorModeValue('blue.500','blue.300');
       return (
       		<>

@@ -23,7 +23,6 @@ export default function Blog({allSortedBlogs}){
 	 const filteredBlogs = allSortedBlogs.filter((blog,index) => {
 	 		return blog.title.toLowerCase().includes(searchValue.toLowerCase());
 	 });
-	 console.log(filteredBlogs);
 
 	return(
         <>
