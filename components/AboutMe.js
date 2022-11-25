@@ -3,7 +3,6 @@ import {
 	Text,
 	SimpleGrid,
 	Box,
-	CircularProgress,CircularProgressLabel,
 	useColorModeValue,
 	Button,
 	Flex,
@@ -48,12 +47,9 @@ const AboutMe = () => {
 				border="1px solid #E2E8F0"
 			>
 			    {
-			    	skillsLists.map(({name,fluency},index) => (
+			    	skillsLists.map(({name},index) => (
 						<Box key={index} p="1rem 2.5rem" sx={aboutMeStyles(skillsColor)}>
 							<Box as="span" mr="2rem">{name}</Box>
-							<CircularProgress value={fluency} color={skillsColor} size="30px">
-							  	<CircularProgressLabel>{fluency}%</CircularProgressLabel>
-							</CircularProgress>
 						</Box>
 			    	))
 			    }
