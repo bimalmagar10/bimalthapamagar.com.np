@@ -11,6 +11,8 @@ import {
 	useColorModeValue,
 	Link,
 	Icon,
+	Stack,
+	Flex
 } from "@chakra-ui/react";
 import {ChevronLeftIcon} from "@chakra-ui/icons";
 import {timeFormatter} from "../lib/helpers";
@@ -22,15 +24,19 @@ const BlogDetailPage = (props) => {
     return (
         <div className="blog__details">
       			<VStack align="flex-start" mb="2rem">
-      				<Heading fontSize="4rem !important" fontFamily="inherit">{matters.title}</Heading>
-      				<HStack align="center" fontSize="1.6rem">
-      					<ChakraImage mr=".5rem" src="/images/profile.jpg" objectFit="cover" alt="Bimal Thapa Magar" borderRadius="full" boxSize="40px"/>
-      					<Text>Bimal Thapa Magar</Text>
-      					<Text p="0 .3rem 0 .5rem" color="gray.500">{timeFormatter(matters.date,matters.time)} ago</Text>
-      					<Text fontSize="3rem">&#8901;</Text>
-      					<Text>{matters.readingTime.text}</Text>
-                        <Text fontSize="4rem">&#8902;</Text>
-      				</HStack>
+      				<Heading fontSize="4rem !important" fontFamily="inherit" marginBottom=".5rem">{matters.title}</Heading>
+      				<Flex flexDirection={{base:"column",md:"row"}} alignItems={{base:"flex-start",md:"center"}} fontSize="1.6rem" gap="1rem">
+						<Flex alignItems="center">
+							<ChakraImage mr=".5rem" src="/images/profile.jpg" objectFit="cover" alt="Bimal Thapa Magar" borderRadius="full" boxSize="40px"/>
+							<Text>Bimal Thapa Magar</Text>
+						</Flex>
+						<Flex alignItems={"center"} gap={".5rem"}>
+							<Text p="0 .3rem 0 .5rem" color="gray.500">{timeFormatter(matters.date,matters.time)} ago</Text>
+							<Text fontSize="3rem">&#8901;</Text>
+							<Text>{matters.readingTime.text}</Text>
+							<Text fontSize="4rem">&#8902;</Text>
+						</Flex>
+      				</Flex>
       			</VStack>
       			<Link
 				as={NextLink}
