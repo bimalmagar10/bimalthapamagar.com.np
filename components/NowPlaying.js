@@ -66,7 +66,10 @@ const NowPlaying = () => {
 
 	return (
 		<HStack p="1rem 0" spacing="1rem">
-			<Image src="/spotify-1.svg" alt="Spotify Icon" width="80px" height="80px"/>
+			<Image src="/spotify-1.svg" alt="Spotify Icon" width={0} height={0} sizes="100vw" style={{
+				height:"80px",
+				width:"80px"
+			}}/>
 			{/*<Text fontSize="1.6rem" fontWeight="700">- Not Playing</Text>*/}
 			{
 				data?.isPlaying ? (

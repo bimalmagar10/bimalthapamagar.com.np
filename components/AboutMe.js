@@ -42,14 +42,14 @@ const AboutMe = () => {
 					<Button as ="a" href="mailto:bimalmagar873@gmail.com" size="lg" fontSize="1.6rem" p="1.5rem 2rem" colorScheme="teal">Say Hi,👋!</Button>
 				</Box>
 			</Flex>
-			<SimpleGrid columns={[2,null,2]} p="4rem" 
+			<SimpleGrid columns={[2,null,2]} p={{base:"2rem",md:"4rem"}}
 				spacing="1rem 5rem" 
 				border="1px solid #E2E8F0"
 			>
 			    {
 			    	skillsLists.map(({name},index) => (
 						<Box key={index} p="1rem 2.5rem" sx={aboutMeStyles(skillsColor)}>
-							<Box as="span" mr="2rem">{name}</Box>
+							<Box as="span" mr="2rem" fontSize={{base:'1.2rem',md:'1.4rem'}}>{name}</Box>
 						</Box>
 			    	))
 			    }

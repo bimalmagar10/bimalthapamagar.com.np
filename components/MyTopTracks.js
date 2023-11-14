@@ -7,11 +7,13 @@ import {
 	Flex,
 	Text,
 	Link,Alert,
-	useColorModeValue
+	useColorModeValue,
+	Skeleton
 } from "@chakra-ui/react";
 import {WarningIcon} from "@chakra-ui/icons";
 import useSWR from "swr";
 import {fetcher} from "../lib/helpers";
+import TopTracksSkeleton from "./TopTracksSkeleton";
 const bgColor = (currentColor) => {
 	return {
 		background:currentColor
@@ -19,7 +21,8 @@ const bgColor = (currentColor) => {
 };
 const MyTopTracks = () => {
 	const bg = useColorModeValue("gray.100","gray.800");
-    const {data,error} = useSWR(`/api/top-tracks`,fetcher);
+    const {data,error,isLoading} = useSWR(`/api/top-tracks`,fetcher);
+	
 	return (
 		<>
 			<Heading fontSize="2.5rem" mb="1rem">My Top Ten Tracks on Spotify</Heading>
@@ -37,36 +40,38 @@ const MyTopTracks = () => {
 					marginBottom:"1rem"
 				}
 			}}>
-			    {error && (
-			    	<>
-			    		<Alert status="error">
-	            		<WarningIcon mr="1rem" color="crimson"/>No Tracks to Show!
-	            		</Alert>
-			    	</>
-			    )}
-			    {data && data.tracks.map((track,idx) => (
-					<ListItem 
-						key={idx}
-						border="1px solid" 
-						borderColor="gray.400" 
-						p="1rem 1.5rem"
-						borderRadius="5px"
-						cursor="pointer"
-						_hover={bgColor(bg)}
-					>
-						<Flex justify="space-between">
-							<Box>
-								<Link fontWeight="700" href={track.songUrl} isExternal>{track.title}</Link>
-								<Text fontSize="sm">{track.artist}</Text>
-							</Box>
-							<Image 
-							src={track.imageUrl} 
-							alt={`Image of ${track.title} album`} 
-							boxSize="5rem" 
-							objectFit="cover"/>
-						</Flex>
-					</ListItem>
-			    ))}
+				{
+					!isLoading ? data && data?.tracks?.length > 0 ? data.tracks.map((track,idx) => (
+						<ListItem 
+							key={idx}
+							border="1px solid" 
+							borderColor="gray.400" 
+							p="1rem 1.5rem"
+							borderRadius="5px"
+							cursor="pointer"
+							_hover={bgColor(bg)}
+						>
+							<Flex justify="space-between">
+								<Box>
+									<Link fontWeight="700" href={track.songUrl} isExternal>{track.title}</Link>
+									<Text fontSize="sm">{track.artist}</Text>
+								</Box>
+								<Image 
+								src={track.imageUrl} 
+								alt={`Image of ${track.title} album`} 
+								boxSize="5rem" 
+								objectFit="cover"/>
+							</Flex>
+						</ListItem>
+						
+					)): (
+						<>
+							<Alert status="error">
+							<WarningIcon mr="1rem" color="crimson"/>No Tracks to Show!
+							</Alert>
+						</>
+					) :<TopTracksSkeleton/>
+				}
 			</List>
 		</>
 	);

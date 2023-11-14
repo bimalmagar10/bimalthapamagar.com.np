@@ -1,9 +1,9 @@
+import NextLink from 'next/link'
 import {
 	VStack,
 	Box,
 	Heading,
 	Text,
-	Button,
 	Divider,
 	Link,
 	Icon
@@ -16,17 +16,18 @@ const PostItemOverlay = ({slug,title,date,summary}) => {
 		<>
 			<VStack align="flex-start" m="2rem 0">
                 <Box mb="1rem">
-	            	<Heading fontSize="2.5rem" mb="1rem" fontFamily="inherit">
-	            		<Link href={`/blogs/${slug}`}>
+	            	<Heading fontSize="2.4rem" mb="1.2rem" fontFamily="inherit">
+	            		<Link as={NextLink} href={`/blogs/${slug}`} style={{fontWeight:"600"}}>
 	            			{title}
 	            		</Link>
 	            	</Heading>
-	            	<Text fontSize="1.8rem" mb="2rem">{summary}</Text>
+	            	<Text fontSize="1.6rem" mb="2rem">{summary}</Text>
 	            	<Box as="time" color="gray.500" fontSize="1.6rem">
 	            		{dateFormatter(date)}
 	            	</Box>
             	</Box>
             	<Link 
+				    as={NextLink}
             		color="blue.500" 
             		fontSize="1.4rem"
             		href={`/blogs/${slug}`}

@@ -7,9 +7,7 @@ const Footer = () => {
      <SimpleGrid columns={[1,3]} spacing={10} p="0 0 4rem 0">
         {
         	GridItems.map((item,index) => (
-                <Link href={item.url} key={index} passHref scroll={false}>
-		        	<LinkItem fontSize="1.4rem" color={linkColor} target={item.url[0] === "/" ? "_self":"_blank"}>{item.name}</LinkItem>
-		        </Link>
+		        	<LinkItem as={Link}  href={item.url} key={index} fontSize="1.4rem" color={linkColor} target={item.url[0] === "/" ? "_self":"_blank"}>{item.name}</LinkItem>
         	))
         }
      </SimpleGrid>);

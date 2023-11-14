@@ -22,4 +22,14 @@ const animationKeyframes = keyframes`
   75% {transform: scale(1.08) rotate(-2deg);}
   100% {transform: scale(1) rotate(0deg);}
 `;
+
+const waveAnimationKF = keyframes`
+  0% {transform:  rotate(4deg);}
+  25% {transform:  rotate(-4deg);}
+  50% {transform:  rotate(4deg);}
+  75% {transform:  rotate(-4deg);}
+  100% {transform: rotate(4deg);}
+`;
 export const hiAnimation = `${animationKeyframes} 1.5s ease-in-out infinite`;
+
+export const waveAnimation = `${waveAnimationKF} 2s ease-in-out infinite`;

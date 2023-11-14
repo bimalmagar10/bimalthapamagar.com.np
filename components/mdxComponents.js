@@ -114,7 +114,7 @@ const Hr = () => {
 
 const MDXComponents = {
     h1: (props) => <Heading as="h1" size="xl" my={4} {...props} />,
-    h2: (props) => <DocsHeading as="h2" size="lg" fontWeight="bold" {...props} />,
+    h2: (props) => <DocsHeading as="h2" size="lg" fontWeight="600" {...props} />,
     h3: (props) => <DocsHeading as="h3" size="md" fontWeight="bold" {...props} />,
     h4: (props) => <DocsHeading as="h4" size="sm" fontWeight="bold" {...props} />,
     h5: (props) => <DocsHeading as="h5" size="sm" fontWeight="bold" {...props} />,
@@ -122,7 +122,7 @@ const MDXComponents = {
     inlineCode: (props) => (
         <Code colorScheme="yellow" fontSize="0.84em" {...props} />
     ),
-    br: (props) => <Box height="24px" {...props} />,
+    br: (props) => <Box height="20px" {...props} />,
     hr: Hr,
     a: CustomLink,
     p: (props) => <Text as="p" mt={0} lineHeight="tall" {...props} />,

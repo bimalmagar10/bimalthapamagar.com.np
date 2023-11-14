@@ -1,12 +1,13 @@
-import {Stack,Link as NextLink} from "@chakra-ui/react";
-import {useRouter} from "next/router";
+import {Stack} from "@chakra-ui/react";
+import { Link } from '@chakra-ui/next-js'
+import {usePathname} from "next/navigation";
 const NavItem = ({href,text}) => {
-    const router = useRouter();
-    const isActive = router.asPath === href;
+    const uri = usePathname();
+    const isActive = uri === href;
     return (
-        <NextLink href={href} fontWeight={isActive ? "700" : "400"}>
+        <Link href={href} fontWeight={isActive ? "700" : "400"}>
             {text}
-        </NextLink>
+        </Link>
     );
 };
 const Navbar = () => {
