@@ -17,8 +17,6 @@ import {motion} from "framer-motion";
 import NextLink from "next/link";
 
 const HomePage = () => {
-    const imgBorder = useColorModeValue("gray.800","lightwhite");
-    const navColor = useColorModeValue("rgba(255, 255, 255, 0.8)","rgba(26, 34, 44,.8)");
 
     return (
         <>

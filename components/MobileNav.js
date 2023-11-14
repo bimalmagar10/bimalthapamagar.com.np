@@ -11,6 +11,7 @@ import {
 	Divider,
 } from "@chakra-ui/react";
 import {HamburgerIcon} from "@chakra-ui/icons";
+import NextLink from "next/link";
 const MobileNav = () => {
 	const {isOpen,onOpen,onClose} = useDisclosure();
 	return (
@@ -36,15 +37,15 @@ const MobileNav = () => {
 				    <DrawerCloseButton/>
 					<DrawerBody mt="6rem" fontSize="2rem">
 					    <Flex direction="column">
-						    <Link href="/" mb="2rem">
+						    <Link as={NextLink} href="/" mb="2rem">
 					    		Home
 					    		<Divider/>
 					    	</Link>
-					    	<Link href="/blogs" mb="2rem">
+					    	<Link as={NextLink} href="/blogs" mb="2rem">
 					    		Blogs
 					    		<Divider/>
 					    	</Link>
-					        <Link href="/about-me" mb="2rem">
+					        <Link as={NextLink} href="/about-me" mb="2rem">
 					    		About Me
 					    		<Divider/>
 					    	</Link>
