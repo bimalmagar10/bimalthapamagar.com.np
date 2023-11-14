@@ -12,12 +12,9 @@ import {
 } from "@chakra-ui/react";
 import ProfileImage from "./ProfileImage";
 import MyTopTracks from "./MyTopTracks";
-import Head from "next/head";
-import Footer from './Footer';
-import Header from "./Header";
-import Layout from "./Layout";
 import { waveAnimation } from "../styles/custom-styles";
 import {motion} from "framer-motion";
+import NextLink from "next/link";
 
 const HomePage = () => {
     const imgBorder = useColorModeValue("gray.800","lightwhite");
@@ -56,7 +53,7 @@ const HomePage = () => {
                     With a wealth of experience, I excel in crafting and deploying web applications, as well 
                     as contributing to mobile app development.My expertise extends to not only writing efficient 
                     and scalable code but also articulating insights about software through written content.
-                    Don&rsquo;t forget to check out the naivete blogs that I have written in my site <Link href="/blogs" color="blue.400">here</Link>.
+                    Don&rsquo;t forget to check out the naivete blogs that I have written in my site <Link as={NextLink} href="/blogs" color="blue.400">here</Link>.
                     <br/>
                     <br/>
                     Beyond coding, my guitar strings resonate with inspiration. My dual passion for technology and 
