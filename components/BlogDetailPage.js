@@ -25,7 +25,7 @@ const BlogDetailPage = (props) => {
         <div className="blog__details">
       			<VStack align="flex-start" mb="2rem">
       				<Heading fontSize="4rem !important" fontFamily="inherit" marginBottom=".5rem">{matters.title}</Heading>
-      				<Flex flexDirection={{base:"column",md:"row"}} alignItems={{base:"flex-start",md:"center"}} fontSize="1.6rem" gap="1rem">
+      				<Flex flexDirection={{base:"column",md:"row"}} alignItems={{base:"flex-start",md:"center"}} fontSize="1.6rem" gap={{base:".2rem",md:"1rem"}}>
 						<Flex alignItems="center">
 							<ChakraImage mr=".5rem" src="/images/profile.jpg" objectFit="cover" alt="Bimal Thapa Magar" borderRadius="full" boxSize="40px"/>
 							<Text>Bimal Thapa Magar</Text>
