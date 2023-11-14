@@ -95,7 +95,6 @@ const NowPlaying = () => {
 							<span style={{padding:"0 5px"}}>{'-'}</span>
 							<Text fontSize="1.4rem" as="span">{data.artist}</Text>
 						</Text>
-						
 					</Flex>
 				)
 			}
