@@ -41,10 +41,7 @@ const HomePage = () => {
                     </Heading>
                     <ProfileImage/>
                 </Flex>
-                <Text fontSize="1.65rem" lineHeight="1.5" textAlign="justify" sx={{
-                    textJustify:"inter-word",
-                    hyphens:"auto"
-                }}>
+                <Text fontSize="1.65rem" lineHeight="1.5" textAlign="justify">
                     My name is Bimal Thapa Magar.Currently,I&rsquo;m based in Kathmandu,Nepal.
                     I am a dedicated software engineer with a passion for React.js, specializing 
                     in the development of expansive frontend applications using cutting-edge technologies. 
