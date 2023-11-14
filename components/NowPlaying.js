@@ -3,7 +3,8 @@ import {
 	Text,
 	Box,
 	chakra,
-	Link
+	Link,
+	Flex
 } from "@chakra-ui/react";
 import Image from "next/image";
 import useSWR from 'swr';
@@ -65,7 +66,7 @@ const NowPlaying = () => {
 	const {data,error} = useSWR('/api/now-playing',fetcher,{refreshInterval:1000});
 
 	return (
-		<HStack p="1rem 0" spacing="1rem">
+		<Flex p="1rem 0" gap={["0rem","1rem","1rem","1rem"]} flexDirection={["column","row","row","row"]} alignItems={["flex-start","center","center","center"]} mb={["3rem","0rem","0rem","0rem"]}>
 			<Image src="/spotify-1.svg" alt="Spotify Icon" width={0} height={0} sizes="100vw" style={{
 				height:"80px",
 				width:"80px"
@@ -73,18 +74,22 @@ const NowPlaying = () => {
 			{/*<Text fontSize="1.6rem" fontWeight="700">- Not Playing</Text>*/}
 			{
 				data?.isPlaying ? (
-					<>
+					<Flex gap="1rem">
 						<AnimatedBars/>
-						<Link 
-							fontSize="1.5rem"
-							href={data.songUrl}
-							isExternal={true}
-						>
-							{data.name}
-						</Link>
-						<span>{'-'}</span>
-						<Text fontSize="1.4rem" as="i">{data.artist}</Text>
-					</>
+						<Text as="span">
+							<Link
+							    target="_blank" 
+								fontSize="1.5rem"
+								href={data.songUrl}
+								isExternal={true}
+							>
+								{data.name}
+							</Link>
+							<span>{'-'}</span>
+							<Text fontSize="1.4rem" as="span">{data.artist}</Text>
+						</Text>
+						
+					</Flex>
 				):(
 					<>
 						<span>{'-'}</span>
@@ -92,7 +97,7 @@ const NowPlaying = () => {
 					</>
 				)
 			}
-		</HStack>
+		</Flex>
 	);
 };
 
