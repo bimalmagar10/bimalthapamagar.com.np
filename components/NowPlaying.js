@@ -67,13 +67,20 @@ const NowPlaying = () => {
 
 	return (
 		<Flex p="1rem 0" gap={["0rem","1rem","1rem","1rem"]} flexDirection={["column","row","row","row"]} alignItems={["flex-start","center","center","center"]} mb={["3rem","0rem","0rem","0rem"]}>
-			<Image src="/spotify-1.svg" alt="Spotify Icon" width={0} height={0} sizes="100vw" style={{
-				height:"80px",
-				width:"80px"
-			}}/>
-			{/*<Text fontSize="1.6rem" fontWeight="700">- Not Playing</Text>*/}
+			<Flex alignItems="center" gap={"5px"}>
+				<Image src="/spotify-1.svg" alt="Spotify Icon" width={0} height={0} sizes="100vw" style={{
+					height:"80px",
+					width:"80px"
+				}}/>
+				{!data?.isPlaying && (
+					<>
+						<span>{'-'}</span>
+						<Text fontSize="1.6rem" fontWeight="700">Not Playing</Text>
+					</>
+				)}
+			</Flex>
 			{
-				data?.isPlaying ? (
+				data?.isPlaying && (
 					<Flex gap="1rem">
 						<AnimatedBars/>
 						<Text as="span">
@@ -90,11 +97,6 @@ const NowPlaying = () => {
 						</Text>
 						
 					</Flex>
-				):(
-					<>
-						<span>{'-'}</span>
-						<Text fontSize="1.6rem" fontWeight="700">Not Playing</Text>
-					</>
 				)
 			}
 		</Flex>
