@@ -38,7 +38,7 @@ export default function RootLayout({
         <head>
           <base target="_blank"></base>
         </head>
-        <body suppressHydrationWarning={true} className={`${quicksand.variable} ${open_sans.variable} ${sairastencilone.variable}`}>
+        <body suppressHydrationWarning={true} className={`${quicksand.variable} ${open_sans.variable} ${sairastencilone.variable}`} style={{position:"relative",minHeight:"100vh"}}>
             <UIProvider>
                 {children}
             </UIProvider>
