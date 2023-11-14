@@ -28,20 +28,20 @@ const MobileNav = () => {
 				<Flex justifyContent="space-between" alignItems="center">
 					<Link as={NextLink} href="/" textDecoration="unset !important">
 						<VStack align="center" spacing="0" color={uri === "/" ? activeColor : inactiveColor}>
-							<GoHomeFill fontSize="2.1rem"/>
-							<Text fontSize="1.4rem">Home</Text>
+							<GoHomeFill fontSize="1.9rem"/>
+							<Text fontSize="1.2rem">Home</Text>
 						</VStack>
 					</Link>
 					<Link as={NextLink} href="/blogs" textDecoration="unset !important">
 						<VStack align="center" color={regexForBlogsRoute.test(uri) ? activeColor : inactiveColor}>
-							<FaFilePen fontSize="1.9rem"/>
-							<Text fontSize="1.4rem">Blogs</Text>
+							<FaFilePen fontSize="1.8rem"/>
+							<Text fontSize="1.2rem">Blogs</Text>
 						</VStack>
 					</Link>
 					<Link as={NextLink} href="/about-me" textDecoration="unset !important">
 						<VStack align="center" color={uri === "/about-me" ? activeColor : inactiveColor}>
-							<FaCircleUser fontSize="2rem"/>
-							<Text fontSize="1.4rem">About Me</Text>
+							<FaCircleUser fontSize="1.8rem"/>
+							<Text fontSize="1.2rem">About Me</Text>
 						</VStack>
 					</Link>
 				</Flex>
