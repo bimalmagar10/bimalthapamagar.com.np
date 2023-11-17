@@ -30,7 +30,7 @@ const AboutMeRoot = () => {
 					<Text fontSize="1.6rem" fontWeight="500" color={aboutTextColor}>Software Engineer</Text>
 					<Tooltip label="Kathmandu,Nepal" fontSize="1.3rem">
 						<Text fontSize="1.6rem" fontWeight="400" p={0} color={aboutTextColor} style={{display:"flex",alignItems:"center"}}>
-							 <Icon as={IoLocationOutline} pt="1"/><Box as="span" fontSize="1.3rem" style={{display:"inline-block",marginTop:"3px"}}>Kathmandu&sbquo;Nepal</Box>
+							 <Icon as={IoLocationOutline} pt="1"/><Box as="span" fontSize="1.3rem" style={{display:"inline-block",marginTop:"3px"}}>Nepal</Box>
 						</Text>
 					</Tooltip>
 				</Box>
