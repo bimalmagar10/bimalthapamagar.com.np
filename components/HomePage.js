@@ -42,7 +42,7 @@ const HomePage = () => {
                     <ProfileImage/>
                 </Flex>
                 <Text fontSize="1.65rem" lineHeight="1.5" textAlign="justify">
-                    My name is Bimal Thapa Magar.Currently,I&rsquo;m based in Kathmandu,Nepal.
+                    My name is Bimal Thapa Magar.Currently,I&rsquo;m based in Ontario,Canada but originally from Nepal.
                     I am a dedicated software engineer with a passion for React.js, specializing 
                     in the development of expansive frontend applications using cutting-edge technologies. 
                     With a wealth of experience, I excel in crafting and deploying web applications, as well 
