@@ -1,19 +1,19 @@
-import {keyframes} from "@chakra-ui/react";
+import { keyframes } from "@chakra-ui/react";
 export const aboutMeStyles = (skillsColor) => {
-	return {
-		'position':'relative',
-		'borderLeft':`1px solid ${skillsColor}`,
-		'::before':{
-			'content':'""',
-			'height':'10px',
-			'width':'10px',
-			'borderRadius':'50%',
-		    'background':`${skillsColor}`,
-			'position':'absolute',
-			'top':'-5px',
-			'left':'-5px'
-		}
-	};
+  return {
+    position: "relative",
+    borderLeft: `1px solid ${skillsColor}`,
+    "::before": {
+      content: '""',
+      height: "10px",
+      width: "10px",
+      borderRadius: "50%",
+      background: `${skillsColor}`,
+      position: "absolute",
+      top: "-5px",
+      left: "-5px",
+    },
+  };
 };
 const animationKeyframes = keyframes`
   0% {transform: scale(0) rotate(2deg);}
