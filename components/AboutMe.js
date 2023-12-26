@@ -27,18 +27,18 @@ const AboutMe = () => {
       >
         Hello there! I&rsquo;m Bimal Thapa, a passionate individual on an
         exciting journey through the realms of technology. With a strong
-        foundation in Software Engineering, I've dedicated myself to the dynamic
-        fields of Machine Learning, Computer Vision, and Natural Language
-        Processing. My inquisitive mindset constantly drives me to explore the
-        nuances of artificial intelligence, unraveling the mysteries of
-        algorithms and the power of data. As a code weaver, I craft intelligent
-        systems that not only meet technical standards but also make a
-        meaningful impact. My vision for the future revolves around leveraging
+        foundation in Software Engineering, I&rsquo;ve dedicated myself to the
+        dynamic fields of Machine Learning, Computer Vision, and Natural
+        Language Processing. My inquisitive mindset constantly drives me to
+        explore the nuances of artificial intelligence, unraveling the mysteries
+        of algorithms and the power of data. As a code weaver, I craft
+        intelligent systems that not only meet technical standards but also make
+        a meaningful impact. My vision for the future revolves around leveraging
         the full potential of technology to create innovative solutions that
         shape a smarter and more connected world. Join me as I navigate the
         ever-evolving landscape of technology, driven by a commitment to
-        continuous learning and a deep love for pushing the boundaries of what's
-        possible.
+        continuous learning and a deep love for pushing the boundaries of
+        what&rsquo;s possible.
       </Text>
       <Flex justify="space-between" align="center" mb="4rem">
         <Heading fontSize="2.5rem" letterSpacing="1px">
