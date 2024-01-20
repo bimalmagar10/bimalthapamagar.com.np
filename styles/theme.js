@@ -12,8 +12,8 @@ const breakpoints = {
 };
 const fonts = {
   ...chakraTheme.fonts,
-  body: `var(--font-quicksand)`,
-  heading: `var(--font-quicksand)`,
+  body: `var(--font-satoshi)`,
+  heading: `var(--font-satoshi)`,
 };
 
 const theme = extendTheme({
@@ -22,12 +22,12 @@ const theme = extendTheme({
     global: {
       html: {
         fontSize: "62.5%",
-        fontFamily: "var(--font-quicksand)",
+        fontFamily: "var(--font-satoshi)",
       },
       body: {
         boxSizing: "border-box",
         fontSize: "1.8rem",
-        fontFamily: "var(--font-quicksand)",
+        fontFamily: "var(--font-satoshi)",
         fontWeight: "500",
       },
       "*,*::before,*::after": {

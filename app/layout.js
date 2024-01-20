@@ -1,5 +1,6 @@
 import UIProvider from "../components/UIProvider";
 import { Open_Sans, Quicksand, Saira_Stencil_One } from "next/font/google";
+import localFont from "next/font/local";
 
 export const metadata = {
   title: "Home",
@@ -28,11 +29,38 @@ const sairastencilone = Saira_Stencil_One({
   variable: "--font-saira_stencil_one",
 });
 
+const satoshi = localFont({
+  src: [
+    {
+      path: "../fonts/Satoshi-Black.woff2",
+      weight: "900",
+      style: "normal",
+    },
+    {
+      path: "../fonts/Satoshi-Bold.woff2",
+      weight: "700",
+      display: "normal",
+    },
+    {
+      path: "../fonts/Satoshi-Light.woff2",
+      weight: "300",
+      style: "normal",
+    },
+    {
+      path: "../fonts/Satoshi-Medium.woff2",
+      weight: "400",
+      style: "normal",
+    },
+  ],
+  display: "swap",
+  variable: "--font-satoshi",
+});
+
 export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${quicksand.variable} ${open_sans.variable} ${sairastencilone.variable}`}
+      className={`${quicksand.variable} ${open_sans.variable} ${sairastencilone.variable} ${satoshi.variable}`}
     >
       <head>
         <base target="_blank"></base>
