@@ -78,6 +78,9 @@ const theme = extendTheme({
     lightwhite: "#EFF6FF",
     grayish: "#666666",
     lightgrayish: "#494961",
+    black: {
+      800: "#101010",
+    },
   },
   breakpoints,
   fontSizes: {

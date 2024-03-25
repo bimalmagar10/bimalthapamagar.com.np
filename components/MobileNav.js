@@ -11,6 +11,7 @@ import { GoHomeFill } from "react-icons/go";
 import { FaFilePen, FaCircleUser } from "react-icons/fa6";
 import { usePathname } from "next/navigation";
 import { useMemo } from "react";
+import { AiFillSnippets } from "react-icons/ai";
 
 const MobileNav = () => {
   const bgColor = useColorModeValue("#fff", "gray.800");
@@ -52,6 +53,19 @@ const MobileNav = () => {
             >
               <FaFilePen fontSize="1.8rem" />
               <Text fontSize="1.2rem">Blogs</Text>
+            </VStack>
+          </Link>
+          <Link
+            as={NextLink}
+            href="/snippets"
+            textDecoration="unset !important"
+          >
+            <VStack
+              align="center"
+              color={uri.includes("snippets") ? activeColor : inactiveColor}
+            >
+              <AiFillSnippets fontSize="1.8rem" />
+              <Text fontSize="1.2rem">Snippets</Text>
             </VStack>
           </Link>
           <Link

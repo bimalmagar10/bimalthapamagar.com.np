@@ -3,7 +3,10 @@ import { Link } from "@chakra-ui/next-js";
 import { usePathname } from "next/navigation";
 const NavItem = ({ href, text }) => {
   const uri = usePathname();
-  const isActive = uri === href;
+  const isActive =
+    href === "/snippets" || href === "/blogs"
+      ? uri?.includes(href)
+      : uri === href;
   return (
     <Link href={href} fontWeight={isActive ? "700" : "400"}>
       {text}
@@ -19,6 +22,7 @@ const Navbar = () => {
     >
       <NavItem href="/" text="Home" />
       <NavItem href="/blogs" text="Blogs" />
+      <NavItem href="/snippets" text="Snippets" />
       <NavItem href="/about-me" text="About Me" />
     </Stack>
   );

@@ -10,6 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { jsx } from "@emotion/react";
 import NextLink from "next/link";
+import CopyButton from "./CopyButton";
 
 const CustomLink = (props) => {
   const { colorMode } = useColorMode();
@@ -132,5 +133,19 @@ const MDXComponents = {
   blockquote: Quote,
 };
 
-export { CustomLink };
+const customMDXCmpnts = {
+  pre: (props) => (
+    <pre
+      {...props}
+      style={{
+        paddingTop: "5.5rem",
+      }}
+    >
+      {props?.children}
+      <CopyButton text={props?.raw} />
+    </pre>
+  ),
+};
+
+export { CustomLink, customMDXCmpnts };
 export default MDXComponents;
