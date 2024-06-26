@@ -25,7 +25,7 @@ const AboutMe = () => {
           hyphens: "auto",
         }}
       >
-        Hello there! I&rsquo;m Bimal Thapa, a passionate individual on an
+        Hello there! I&rsquo;m Bimal Thapa Magar, a passionate individual on an
         exciting journey through the realms of technology. With a strong
         foundation in Software Engineering, I&rsquo;ve dedicated myself to the
         dynamic fields of Machine Learning, Computer Vision, and Natural
