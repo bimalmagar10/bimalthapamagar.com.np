@@ -49,12 +49,12 @@ const BlogDetailPage = (props) => {
             <Text>Bimal Thapa Magar</Text>
           </Flex>
           <Flex alignItems={"center"} gap={".5rem"}>
+            <Text fontSize="3rem">&#8901;</Text>
             <Text p="0 .3rem 0 .5rem" color="gray.500">
               {timeFormatter(matters.date, matters.time)} ago
             </Text>
             <Text fontSize="3rem">&#8901;</Text>
             <Text>{matters.readingTime.text}</Text>
-            <Text fontSize="4rem">&#8902;</Text>
           </Flex>
         </Flex>
       </VStack>
@@ -98,7 +98,7 @@ const BlogDetailPage = (props) => {
           hyphens: "auto",
         }}
       >
-        <Text fontSize="1.8rem" mb="3rem">
+        <Text fontSize="1.8rem" mb="3rem" fontStyle={"italic"}>
           {matters.shortTheme}
         </Text>
         {props.children}
