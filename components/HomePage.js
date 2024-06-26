@@ -61,8 +61,8 @@ const HomePage = () => {
             <ProfileImage />
           </Flex>
           <Text fontSize="1.65rem" lineHeight="1.5" textAlign="justify">
-            My name is Bimal Thapa.Currently,I&rsquo;m based in Nepal. I am a
-            dedicated software engineer with a passion for React.js
+            My name is Bimal Thapa Magar.Currently,I&rsquo;m based in Nepal. I
+            am a dedicated software engineer with a passion for React.js
             ,&nbsp;Machine Learning (
             <b>
               Natural Language Processing, Computer Vision ,Image Processing and

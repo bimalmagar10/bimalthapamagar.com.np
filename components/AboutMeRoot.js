@@ -26,7 +26,7 @@ const AboutMeRoot = () => {
         <ProfileImage />
         <Box ml="1rem">
           <Text fontWeight="700" fontSize="2rem">
-            Bimal Thapa
+            Bimal Thapa Magar
           </Text>
           <Text fontSize="1.6rem" fontWeight="500" color={aboutTextColor}>
             Software Engineer
