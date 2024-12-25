@@ -1,20 +1,19 @@
 "use client";
 
 import {
-  Flex,
-  VStack,
-  Text,
-  Heading,
-  Divider,
   Box,
-  useColorModeValue,
+  Divider,
+  Flex,
+  Heading,
   Link,
+  Text,
+  VStack,
 } from "@chakra-ui/react";
-import ProfileImage from "./ProfileImage";
-import MyTopTracks from "./MyTopTracks";
-import { waveAnimation } from "../styles/custom-styles";
 import { motion } from "framer-motion";
 import NextLink from "next/link";
+import { waveAnimation } from "../styles/custom-styles";
+import MyTopTracks from "./MyTopTracks";
+import ProfileImage from "./ProfileImage";
 
 const HomePage = () => {
   return (
@@ -61,17 +60,13 @@ const HomePage = () => {
             <ProfileImage />
           </Flex>
           <Text fontSize="1.65rem" lineHeight="1.5" textAlign="justify">
-            My name is Bimal Thapa Magar.Currently,I&rsquo;m based in Nepal. I
-            am a dedicated software engineer with a passion for React.js
-            ,&nbsp;Machine Learning (
-            <b>
-              Natural Language Processing, Computer Vision ,Image Processing and
-              Computer Security
-            </b>
-            ).My expertise extends to not only writing efficient and scalable
-            code but also articulating insights about software through written
-            content. Don&rsquo;t forget to check out the naivete blogs that I
-            have written in my site{" "}
+            My name is Bimal Thapa Magar.Currently,I&rsquo;m based in USA. I am
+            a dedicated software engineer with a passion for Deep Learning, Data
+            Structures and Algorithms, and also React.js .My expertise extends
+            to not only writing efficient and scalable code but also
+            articulating insights about software through written content.
+            Don&rsquo;t forget to check out the naivete blogs that I have
+            written in my site{" "}
             <Link as={NextLink} href="/blogs" color="blue.400">
               here
             </Link>
@@ -80,17 +75,10 @@ const HomePage = () => {
             <br />
             Beyond coding, my guitar strings resonate with inspiration. My dual
             passion for technology and music shapes a well-rounded approach to
-            life and work.Just as a musician refines each note, I craft software
-            solutions with precision and innovation. Join me on this melodic
-            journey through the world of technology and music.
+            life and work balance.
           </Text>
         </VStack>
       </Flex>
-      {/******
-       ****** WILL ADD THIS FEATUREdPOSTS FEATURE LATER
-       *****<FeaturedPosts/>
-       ******
-       *******/}
       <MyTopTracks />
       <Divider mt="1rem" />
     </>

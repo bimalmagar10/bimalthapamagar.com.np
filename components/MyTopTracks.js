@@ -1,17 +1,16 @@
+import { WarningIcon } from "@chakra-ui/icons";
 import {
-  Heading,
-  List,
-  ListItem,
-  Image,
+  Alert,
   Box,
   Flex,
-  Text,
+  Heading,
+  Image,
   Link,
-  Alert,
+  List,
+  ListItem,
+  Text,
   useColorModeValue,
-  Skeleton,
 } from "@chakra-ui/react";
-import { WarningIcon } from "@chakra-ui/icons";
 import useSWR from "swr";
 import { fetcher } from "../lib/helpers";
 import TopTracksSkeleton from "./TopTracksSkeleton";
@@ -22,7 +21,7 @@ const bgColor = (currentColor) => {
 };
 const MyTopTracks = () => {
   const bg = useColorModeValue("gray.100", "gray.800");
-  const { data, error, isLoading } = useSWR(`/api/top-tracks`, fetcher);
+  const { data, isLoading } = useSWR(`/api/top-tracks`, fetcher);
 
   return (
     <>
@@ -40,9 +39,7 @@ const MyTopTracks = () => {
         }}
       >
         Are you curious about what kind of songs that I mostly listen? These are
-        the top ten tracks, that I usually listen, while I&apos;m coding, on
-        Spotify.Know my quotidian tracks and try listening them, while you are
-        feeling humdrum.
+        the top ten tracks, that I usually listen.
       </Text>
       <List
         width="100%"

@@ -45,7 +45,7 @@ const AboutMeRoot = () => {
                 fontSize="1.3rem"
                 style={{ display: "inline-block", marginTop: "3px" }}
               >
-                Nepal
+              United States of America
               </Box>
             </Text>
           </Tooltip>
