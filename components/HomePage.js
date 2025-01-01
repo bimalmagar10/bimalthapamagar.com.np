@@ -60,22 +60,9 @@ const HomePage = () => {
             <ProfileImage />
           </Flex>
           <Text fontSize="1.65rem" lineHeight="1.5" textAlign="justify">
-            My name is Bimal Thapa Magar.Currently,I&rsquo;m based in USA. I am
-            a dedicated software engineer with a passion for Deep Learning, Data
-            Structures and Algorithms, and also React.js .My expertise extends
-            to not only writing efficient and scalable code but also
-            articulating insights about software through written content.
-            Don&rsquo;t forget to check out the naivete blogs that I have
-            written in my site{" "}
-            <Link as={NextLink} href="/blogs" color="blue.400">
-              here
-            </Link>
-            .
-            <br />
-            <br />
-            Beyond coding, my guitar strings resonate with inspiration. My dual
-            passion for technology and music shapes a well-rounded approach to
-            life and work balance.
+            My name is Bimal Thapa Magar.I am a dedicated software engineer with
+            a passion for Deep Learning, Data Structures and Algorithms, and
+            also React.js.
           </Text>
         </VStack>
       </Flex>
