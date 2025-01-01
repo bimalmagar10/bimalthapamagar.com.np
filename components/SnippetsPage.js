@@ -34,10 +34,6 @@ const SnippetsPage = (props) => {
   const { colorMode } = useColorMode();
   return (
     <VStack align="flex-start" mb="2rem">
-      <Text fontSize={["1.6rem", "1.8rem"]} fontWeight={700} mb={"2rem"}>
-        I&apos;ve posted some code snippets according to categories.You can copy
-        and paste the snippets for your reference.
-      </Text>
       <Tabs
         variant="unstyled"
         colorScheme="green"
