@@ -1,6 +1,7 @@
 import UIProvider from "../components/UIProvider";
 import { Open_Sans, Quicksand, Saira_Stencil_One } from "next/font/google";
 import localFont from "next/font/local";
+import "./globals.css";
 import { Metadata } from "next";
 import { ReactNode } from "react";
 
