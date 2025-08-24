@@ -1,24 +1,25 @@
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 import { getNowPlaying } from "../../../lib/spotify";
+import { SpotifyNowPlayingResponse, SpotifyArtist } from "../../../lib/types";
 
 export const dynamic = "force-dynamic";
 
-export async function GET(request) {
+export async function GET(request: NextRequest) {
   const response = await getNowPlaying();
   if (response?.status === 204 || response?.status > 400) {
     return NextResponse.json({ isPlaying: false }, { status: 200 });
   }
 
   try {
-    const song = await response.json();
+    const song: SpotifyNowPlayingResponse = await response.json();
     const isPlaying = song?.is_playing;
     const name = song?.item?.name;
     const artist = song?.item?.artists
-      .map((_artist) => _artist.name)
+      .map((artist: SpotifyArtist) => artist.name)
       .join(", ");
     const album = song?.item?.album.name;
     const albumImageUrl = song?.item?.album.images[0].url;
-    const songUrl = song?.item?.album.external_urls.spotify;
+    const songUrl = song?.item?.external_urls.spotify;
 
     return NextResponse.json(
       {

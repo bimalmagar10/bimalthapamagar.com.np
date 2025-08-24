@@ -1,8 +1,10 @@
 import UIProvider from "../components/UIProvider";
 import { Open_Sans, Quicksand, Saira_Stencil_One } from "next/font/google";
 import localFont from "next/font/local";
+import { Metadata } from "next";
+import { ReactNode } from "react";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Home",
   description:
     "Welcome to my site.I'm Bimal Thapa Magar and I am ReactJS enthusiast, Electronics and Communication Engineer and a guitar player.",
@@ -39,7 +41,7 @@ const satoshi = localFont({
     {
       path: "../fonts/Satoshi-Bold.woff2",
       weight: "700",
-      display: "normal",
+      style: "normal",
     },
     {
       path: "../fonts/Satoshi-Light.woff2",
@@ -56,7 +58,7 @@ const satoshi = localFont({
   variable: "--font-satoshi",
 });
 
-export default function RootLayout({ children }) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
       lang="en"
