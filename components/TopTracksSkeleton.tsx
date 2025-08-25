@@ -1,60 +1,30 @@
-import {
-  Flex,
-  ListItem,
-  Skeleton,
-  Box,
-  useColorModeValue,
-} from "@chakra-ui/react";
+import { Skeleton } from "@/components/ui/skeleton";
+import { cn } from "@/lib/utils";
 import { useId } from "react";
 
 const TopTracksSkeleton = () => {
   const id = useId();
-  const startColor = useColorModeValue("#EDF2F7", "#2b333e");
-  const endColor = useColorModeValue("#e0e0e0", "404c5c");
 
   return (
-    <>
+    <div className="space-y-4">
       {Array.from({ length: 10 }, (_, idx) => idx).map((_, idx) => (
-        <ListItem
+        <div
           key={id + idx}
-          p="1rem"
-          border="1px solid"
-          borderColor="gray.400"
-          borderRadius="5px"
-          cursor="not-allowed"
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-          }}
+          className={cn(
+            "p-4 border border-gray-400 rounded-lg cursor-not-allowed",
+            "flex justify-between items-center"
+          )}
         >
-          <Flex direction="column" justifyContent={"space-between"}>
-            <Skeleton
-              height="25px"
-              width="20rem"
-              startColor={startColor}
-              endColor={endColor}
-              borderRadius={"3px"}
-            />
-            <Skeleton
-              height="15px"
-              width="25rem"
-              startColor={startColor}
-              endColor={endColor}
-              borderRadius={"3px"}
-            />
-          </Flex>
-          <Box>
-            <Skeleton
-              height="5rem"
-              width="5rem"
-              startColor={startColor}
-              endColor={endColor}
-              borderRadius={"3px"}
-            />
-          </Box>
-        </ListItem>
+          <div className="flex flex-col justify-between space-y-3">
+            <Skeleton className="h-6 w-80 rounded-sm" />
+            <Skeleton className="h-4 w-96 rounded-sm" />
+          </div>
+          <div>
+            <Skeleton className="h-20 w-20 rounded-sm" />
+          </div>
+        </div>
       ))}
-    </>
+    </div>
   );
 };
 

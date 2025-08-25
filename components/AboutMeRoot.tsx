@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import Head from "next/head";
 import { IoLocationOutline } from "react-icons/io5";
-import Header from "./Header";
+import Header from "./header";
 import AboutMe from "./AboutMe";
 import ProfileImage from "./ProfileImage";
 
@@ -45,7 +45,7 @@ const AboutMeRoot = () => {
                 fontSize="1.3rem"
                 style={{ display: "inline-block", marginTop: "3px" }}
               >
-              United States of America
+                United States of America
               </Box>
             </Text>
           </Tooltip>

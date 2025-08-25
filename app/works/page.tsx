@@ -1,5 +1,5 @@
 import { Alert, AlertIcon, Box } from "@chakra-ui/react";
-import Header from "../../components/Header";
+import Header from "../../components/header";
 
 export const metadata = {
   title: "Works",

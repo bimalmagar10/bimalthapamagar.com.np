@@ -1,9 +1,18 @@
-import UIProvider from "../components/UIProvider";
-import { Open_Sans, Quicksand, Saira_Stencil_One } from "next/font/google";
+import { ThemeProvider } from "@/components/theme-provider";
+import {
+  Mulish,
+  Rubik,
+  Inter,
+  Playfair_Display,
+  JetBrains_Mono,
+  Poppins,
+} from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 import { Metadata } from "next";
 import { ReactNode } from "react";
+import Header from "@/components/header";
+import NowPlaying from "@/components/now-playing";
 
 export const metadata: Metadata = {
   title: "Home",
@@ -11,25 +20,46 @@ export const metadata: Metadata = {
     "Welcome to my site.I'm Bimal Thapa Magar and I am ReactJS enthusiast, Electronics and Communication Engineer and a guitar player.",
 };
 
-const open_sans = Open_Sans({
-  weight: ["300", "400", "500", "700"],
+const mulish = Mulish({
+  weight: ["300", "400", "500", "600", "700", "800"],
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-open_sans",
+  variable: "--font-mulish",
 });
 
-const quicksand = Quicksand({
+const rubik = Rubik({
+  weight: ["300", "400", "500", "600", "700", "800"],
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-rubik",
+});
+
+const inter = Inter({
   weight: ["300", "400", "500", "600", "700"],
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-quicksand",
+  variable: "--font-inter",
 });
 
-const sairastencilone = Saira_Stencil_One({
-  weight: ["400"],
+const playfairDisplay = Playfair_Display({
+  weight: ["400", "500", "600", "700", "800", "900"],
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-saira_stencil_one",
+  variable: "--font-playfair",
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  weight: ["300", "400", "500", "600", "700"],
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-jetbrains",
+});
+
+const poppins = Poppins({
+  weight: ["300", "400", "500", "600", "700", "800"],
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-poppins",
 });
 
 const satoshi = localFont({
@@ -61,19 +91,25 @@ const satoshi = localFont({
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html
-      lang="en"
-      className={`${quicksand.variable} ${open_sans.variable} ${sairastencilone.variable} ${satoshi.variable}`}
-    >
-      <head>
-        <base target="_blank"></base>
-      </head>
+    <html lang="en" suppressHydrationWarning>
       <body
-        suppressHydrationWarning={true}
-        className={`${quicksand.variable} ${open_sans.variable} ${sairastencilone.variable}`}
-        style={{ position: "relative", minHeight: "100vh" }}
+        className={`${mulish.variable} ${rubik.variable} ${inter.variable} ${playfairDisplay.variable} ${jetbrainsMono.variable} ${poppins.variable} ${satoshi.variable} antialiased`}
+        suppressHydrationWarning
       >
-        <UIProvider>{children}</UIProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
+            <div className="container mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+              <Header />
+              {children}
+              <NowPlaying />
+            </div>
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   );

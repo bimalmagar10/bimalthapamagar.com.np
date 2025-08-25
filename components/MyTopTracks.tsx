@@ -1,68 +1,60 @@
 import { WarningIcon } from "@chakra-ui/icons";
-import {
-  Alert,
-  Box,
-  Flex,
-  Heading,
-  Image,
-  Link,
-  List,
-  ListItem,
-  Text,
-  useColorModeValue,
-} from "@chakra-ui/react";
+import { Alert, useColorModeValue } from "@chakra-ui/react";
+import { Music } from "lucide-react";
+import Link from "next/link";
 import useSWR from "swr";
 import { fetcher } from "../lib/helpers";
 import TopTracksSkeleton from "./TopTracksSkeleton";
-const bgColor = (currentColor) => {
-  return {
-    background: currentColor,
-  };
-};
+import Image from "next/image";
+import { Separator } from "./ui/separator";
+
 const MyTopTracks = () => {
   const bg = useColorModeValue("gray.100", "gray.800");
   const { data, isLoading } = useSWR(`/api/top-tracks`, fetcher);
 
   return (
     <>
-      <Heading fontSize="2.5rem" mb="3rem">
-        My Top Ten Tracks on Spotify
-      </Heading>
-      <List
-        width="100%"
-        sx={{
-          "> *:not(:last-child)": {
-            marginBottom: "1rem",
-          },
-        }}
-      >
+      <div className="flex items-center gap-2 mb-4">
+        <h1 className="text-2xl font-bold text-foreground">
+          My Top Ten Tracks on Spotify
+        </h1>
+        <Music className="h-5 w-5 text-primary text-yellow-500" />
+      </div>
+      <Separator className="my-2" />
+      <div className="space-y-0 mb-0">
         {!isLoading ? (
           data && data?.tracks?.length > 0 ? (
-            data.tracks.map((track, idx) => (
-              <ListItem
-                key={idx}
-                border="1px solid"
-                borderColor="gray.400"
-                p="1rem 1.5rem"
-                borderRadius="5px"
-                cursor="pointer"
-                _hover={bgColor(bg)}
+            data.tracks.map((track: any, idx: any) => (
+              <div
+                key={track.id + "-" + idx}
+                className="group flex items-center gap-4 py-4 px-0 hover:bg-muted/30 transition-colors duration-200 rounded-lg"
               >
-                <Flex justify="space-between">
-                  <Box>
-                    <Link fontWeight="700" href={track.songUrl} isExternal>
+                <div className="flex items-center gap-4 flex-1">
+                  <div className="relative flex-shrink-0 w-12 h-12 overflow-hidden rounded-md bg-muted">
+                    <Image
+                      src={track.imageUrl || "/placeholder.svg"}
+                      alt={`${track.title} cover`}
+                      height={48}
+                      width={48}
+                      objectFit="cover"
+                    />
+                  </div>
+
+                  <div className="flex-1 min-w-0">
+                    <Link
+                      href={track.songUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-semibold text-foreground text-base leading-tight mb-1 truncate"
+                    >
                       {track.title}
                     </Link>
-                    <Text fontSize="sm">{track.artist}</Text>
-                  </Box>
-                  <Image
-                    src={track.imageUrl}
-                    alt={`Image of ${track.title} album`}
-                    boxSize="5rem"
-                    objectFit="cover"
-                  />
-                </Flex>
-              </ListItem>
+                    <p className="text-muted-foreground text-sm truncate">
+                      {track.artist}
+                    </p>
+                  </div>
+                </div>
+              </div>
             ))
           ) : (
             <>
@@ -75,7 +67,7 @@ const MyTopTracks = () => {
         ) : (
           <TopTracksSkeleton />
         )}
-      </List>
+      </div>
     </>
   );
 };

@@ -3,11 +3,29 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@theme {
+}
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+  --font-family-sans: var(--font-mulish), var(--font-rubik), var(--font-inter),
+    ui-sans-serif, system-ui, sans-serif;
+  --font-family-serif: var(--font-playfair), ui-serif, Georgia, serif;
+  --font-family-mono: var(--font-jetbrains), ui-monospace, SFMono-Regular,
+    "SF Mono", monospace;
+  --font-family-mulish: var(--font-mulish), ui-sans-serif, system-ui, sans-serif;
+  --font-family-rubik: var(--font-rubik), ui-sans-serif, system-ui, sans-serif;
+  --font-family-inter: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-family-playfair: var(--font-playfair), ui-serif, Georgia, serif;
+  --font-family-jetbrains: var(--font-jetbrains), ui-monospace, SFMono-Regular,
+    "SF Mono", monospace;
+  --font-family-poppins: var(--font-poppins), ui-sans-serif, system-ui,
+    sans-serif;
+  --font-family-satoshi: var(--font-satoshi), ui-sans-serif, system-ui,
+    sans-serif;
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -112,9 +130,72 @@
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    border-color: var(--color-border);
+    outline-color: color-mix(in srgb, var(--color-ring) 50%, transparent);
   }
+
+  html {
+    font-family: var(--font-mulish), var(--font-rubik), var(--font-inter),
+      ui-sans-serif, system-ui, sans-serif;
+  }
+
   body {
-    @apply bg-background text-foreground;
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-mulish), var(--font-rubik), var(--font-inter),
+      ui-sans-serif, system-ui, sans-serif;
+  }
+}
+
+@layer utilities {
+  .font-mulish {
+    font-family: var(--font-mulish), ui-sans-serif, system-ui, sans-serif;
+  }
+
+  .font-rubik {
+    font-family: var(--font-rubik), ui-sans-serif, system-ui, sans-serif;
+  }
+
+  .font-inter {
+    font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  }
+
+  .font-playfair {
+    font-family: var(--font-playfair), ui-serif, Georgia, serif;
+  }
+
+  .font-jetbrains {
+    font-family: var(--font-jetbrains), ui-monospace, SFMono-Regular, "SF Mono",
+      monospace;
+  }
+
+  .font-poppins {
+    font-family: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
+  }
+
+  .font-satoshi {
+    font-family: var(--font-satoshi), ui-sans-serif, system-ui, sans-serif;
+  }
+
+  .animate-wave {
+    animation: wave 2s ease-in-out infinite;
+  }
+
+  @keyframes wave {
+    0% {
+      transform: rotate(4deg);
+    }
+    25% {
+      transform: rotate(-4deg);
+    }
+    50% {
+      transform: rotate(4deg);
+    }
+    75% {
+      transform: rotate(-4deg);
+    }
+    100% {
+      transform: rotate(4deg);
+    }
   }
 }

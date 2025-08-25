@@ -1,18 +1,22 @@
-import { Image, useColorModeValue } from "@chakra-ui/react";
+import Image from "next/image";
+import { cn } from "@/lib/utils";
 
-const ProfileImage = () => {
-  const imgBorder = useColorModeValue("gray.900", "lightwhite");
+interface ProfileImageProps {
+  className?: string;
+}
+
+const ProfileImage = ({ className }: ProfileImageProps) => {
   return (
-    <Image
-      src="/images/profile.jpg"
-      alt="Bimal Thapa Magar"
-      objectFit="cover"
-      borderRadius="full"
-      boxSize="100px"
-      borderWidth="2px"
-      borderStyle="solid"
-      borderColor={imgBorder}
-    />
+    <div className={cn("relative w-[100px] h-[100px]", className)}>
+      <Image
+        src="/images/profile.jpg"
+        alt="Bimal Thapa Magar"
+        width={100}
+        height={100}
+        className="rounded-full border-2 border-gray-900 dark:border-white object-cover w-full h-full"
+        priority
+      />
+    </div>
   );
 };
 

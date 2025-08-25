@@ -1,19 +1,23 @@
 "use client";
-import { Container } from "@chakra-ui/react";
+import { ReactNode } from "react";
 import Footer from "./Footer";
 import NowPlaying from "./NowPlaying";
-import Header from "./Header";
+import Header from "./header";
 import MobileNav from "./MobileNav";
 
-const Layout = ({ children }) => {
+interface LayoutProps {
+  children: ReactNode;
+}
+
+const Layout = ({ children }: LayoutProps) => {
   return (
     <>
-      <Container maxW="80rem">
+      <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Header />
         {children}
         <NowPlaying />
         <Footer />
-      </Container>
+      </div>
       <MobileNav />
     </>
   );

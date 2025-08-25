@@ -23,6 +23,7 @@ const nextConfig: NextConfig = {
   // Performance optimizations
   images: {
     formats: ["image/webp", "image/avif"],
+    domains: ["i.scdn.co"],
   },
   // Enable bundle analyzer in development
   ...(process.env.ANALYZE === "true" && {

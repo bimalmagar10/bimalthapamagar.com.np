@@ -1,27 +1,23 @@
 "use client";
-import { Flex, useColorModeValue } from "@chakra-ui/react";
-import DarkModeSwitch from "./DarkModeSwitch";
+import { cn } from "@/lib/utils";
+import { ThemeToggle } from "./theme-toggle";
 import Navbar from "./Navbar";
+
 const Header = () => {
-  const navColor = useColorModeValue(
-    "rgba(255, 255, 255, 0.8)",
-    "rgba(26, 34, 44,.8)"
-  );
   return (
-    <Flex
-      mb="6rem"
-      p="1rem .5rem"
-      align="center"
-      justify={["center", "center", "space-between", "space-between"]}
-      position="sticky"
-      top="0"
-      zIndex="1000"
-      backdropFilter="saturate(180%) blur(5px)"
-      bg={navColor}
+    <header
+      className={cn(
+        "mb-10 px-2 py-4 flex items-center justify-center md:justify-between",
+        "sticky top-0 z-[1000]",
+        "backdrop-blur-md backdrop-saturate-180",
+        "bg-background/80 border-b border-border/50",
+        "transition-all duration-300 ease-in-out"
+      )}
     >
-      <DarkModeSwitch />
+      <ThemeToggle />
       <Navbar />
-    </Flex>
+    </header>
   );
 };
+
 export default Header;

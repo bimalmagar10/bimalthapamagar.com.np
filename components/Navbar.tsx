@@ -1,30 +1,54 @@
-import { Stack } from "@chakra-ui/react";
-import { Link } from "@chakra-ui/next-js";
+import {
+  NavigationMenu,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  navigationMenuTriggerStyle,
+} from "@/components/ui/navigation-menu";
+import { cn } from "@/lib/utils";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
-const NavItem = ({ href, text }) => {
-  const uri = usePathname();
+
+interface NavItemProps {
+  href: string;
+  text: string;
+}
+
+const NavItem = ({ href, text }: NavItemProps) => {
+  const pathname = usePathname();
   const isActive =
     href === "/snippets" || href === "/blogs"
-      ? uri?.includes(href)
-      : uri === href;
+      ? pathname?.includes(href)
+      : pathname === href;
+
   return (
-    <Link href={href} fontWeight={isActive ? "700" : "400"}>
-      {text}
-    </Link>
+    <NavigationMenuItem>
+      <Link href={href} legacyBehavior passHref>
+        <NavigationMenuLink
+          className={cn(
+            navigationMenuTriggerStyle(),
+            "font-normal hover:font-semibold transition-all duration-200",
+            isActive && "font-bold bg-accent text-accent-foreground"
+          )}
+        >
+          {text}
+        </NavigationMenuLink>
+      </Link>
+    </NavigationMenuItem>
   );
 };
+
 const Navbar = () => {
   return (
-    <Stack
-      direction="row"
-      spacing="5rem"
-      display={["none", "none", "flex", "flex"]}
-    >
-      <NavItem href="/" text="Home" />
-      <NavItem href="/blogs" text="Blogs" />
-      <NavItem href="/snippets" text="Snippets" />
-      <NavItem href="/about-me" text="About Me" />
-    </Stack>
+    <NavigationMenu className="hidden md:flex">
+      <NavigationMenuList className="space-x-8">
+        <NavItem href="/" text="Home" />
+        <NavItem href="/blogs" text="Blogs" />
+        <NavItem href="/snippets" text="Snippets" />
+        <NavItem href="/about-me" text="About Me" />
+      </NavigationMenuList>
+    </NavigationMenu>
   );
 };
+
 export default Navbar;
