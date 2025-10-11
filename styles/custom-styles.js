@@ -1,4 +1,5 @@
-import { keyframes } from "@chakra-ui/react";
+import { keyframes } from "@emotion/react";
+
 export const aboutMeStyles = (skillsColor) => {
   return {
     position: "relative",
