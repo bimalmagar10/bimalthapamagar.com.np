@@ -60,7 +60,7 @@ const HomePage = () => {
             <ProfileImage />
           </Flex>
           <Text fontSize="1.65rem" lineHeight="1.5" textAlign="justify">
-            My name is Bimal Thapa Magar. I am currently based in the
+            My name is Bimal Thapa Magar. I am currently based in the &nbsp;
             <strong>United States of America</strong>. I love to train deep
             neural networks. I am passionate about making efficient large
             language models and how can we make it environment friendly. I also
