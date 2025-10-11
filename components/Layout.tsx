@@ -1,7 +1,7 @@
 "use client";
 import { ReactNode } from "react";
 import Footer from "./Footer";
-import NowPlaying from "./NowPlaying";
+import NowPlaying from "./now-playing";
 import Header from "./header";
 import MobileNav from "./MobileNav";
 
