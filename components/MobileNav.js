@@ -68,7 +68,7 @@ const MobileNav = () => {
               <Text fontSize="1.2rem">Snippets</Text>
             </VStack>
           </Link>
-          <Link
+          {/* <Link
             as={NextLink}
             href="/about-me"
             textDecoration="unset !important"
@@ -80,7 +80,7 @@ const MobileNav = () => {
               <FaCircleUser fontSize="1.8rem" />
               <Text fontSize="1.2rem">About Me</Text>
             </VStack>
-          </Link>
+          </Link> */}
         </Flex>
       </Box>
     </>

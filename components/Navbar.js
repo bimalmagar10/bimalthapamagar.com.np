@@ -23,7 +23,7 @@ const Navbar = () => {
       <NavItem href="/" text="Home" />
       <NavItem href="/blogs" text="Blogs" />
       <NavItem href="/snippets" text="Snippets" />
-      <NavItem href="/about-me" text="About Me" />
+      {/* <NavItem href="/about-me" text="About Me" /> */}
     </Stack>
   );
 };
