@@ -2,11 +2,23 @@ import { NextResponse } from "next/server";
 import { getNowPlaying } from "../../../lib/spotify";
 
 export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 export async function GET(request) {
   const response = await getNowPlaying();
   if (response?.status === 204 || response?.status > 400) {
-    return NextResponse.json({ isPlaying: false }, { status: 200 });
+    return NextResponse.json(
+      { isPlaying: false },
+      {
+        status: 200,
+        headers: {
+          "Cache-Control":
+            "no-store, no-cache, must-revalidate, proxy-revalidate",
+          Pragma: "no-cache",
+          Expires: "0",
+        },
+      }
+    );
   }
 
   try {
@@ -31,6 +43,12 @@ export async function GET(request) {
       },
       {
         status: 200,
+        headers: {
+          "Cache-Control":
+            "no-store, no-cache, must-revalidate, proxy-revalidate",
+          Pragma: "no-cache",
+          Expires: "0",
+        },
       }
     );
   } catch (err) {
@@ -40,6 +58,12 @@ export async function GET(request) {
       },
       {
         status: 200,
+        headers: {
+          "Cache-Control":
+            "no-store, no-cache, must-revalidate, proxy-revalidate",
+          Pragma: "no-cache",
+          Expires: "0",
+        },
       }
     );
   }
