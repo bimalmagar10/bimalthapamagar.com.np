@@ -60,13 +60,14 @@ const HomePage = () => {
             <ProfileImage />
           </Flex>
           <Text fontSize="1.65rem" lineHeight="1.5" textAlign="justify">
-            My name is Bimal Thapa Magar. I am currently based in United States
-            of America. I love to train deep neural networks. I am passionate
-            about optimizing large language models and how we can make it
-            environment friendly. I too can build scalable software
-            applications. In my free time, I love to play guitar and write
-            songs.Other than that, I can cook a lost of South Asian dishes.I
-            love cooking more than eating.
+            My name is Bimal Thapa Magar. I am currently based in the
+            <strong>United States of America</strong>. I love to train deep
+            neural networks. I am passionate about making efficient large
+            language models and how can we make it environment friendly. I also
+            can build scalable software applications. I have 3.5 years of
+            experience working as a software engineer. In my free time, I love
+            to play guitar and write songs.Other than that, I can cook a lost of
+            South Asian dishes.I love <strong>cooking</strong> more than eating.
           </Text>
         </VStack>
       </Flex>
