@@ -58,9 +58,12 @@ const BlogsPage = ({ allSortedBlogs }: BlogsPageProps) => {
       </h2>
 
       {!filteredBlogs.length && (
-        <Alert variant="destructive" className="mb-8">
+        <Alert
+          variant="destructive"
+          className="mb-8 mt-4 shadow-none border-none bg-red-100 dark:bg-red-800 dark:text-red-100"
+        >
           <AlertCircle className="h-4 w-4" />
-          <AlertDescription className="text-base">
+          <AlertDescription className="text-red-800 dark:text-red-100">
             No posts found matching &quot;{searchValue}&quot;. Try a different
             search term.
           </AlertDescription>
