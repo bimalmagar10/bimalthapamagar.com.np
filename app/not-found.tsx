@@ -1,43 +1,21 @@
 "use client";
-import { Heading, Flex, useColorModeValue, Link } from "@chakra-ui/react";
-import NextLink from "next/link";
+import Link from "next/link";
 
 export default function NotFound() {
-  const backBtnColor = useColorModeValue("blue.500", "blue.300");
-  const notFoundCTAColor = useColorModeValue("#333333", "#f7f7f7");
   return (
-    <Flex
-      flexDirection="column"
-      gap="1rem"
-      justifyContent="center"
-      alignItems="center"
-      padding="6rem 0rem"
-    >
-      <Heading
-        as="h1"
-        sx={{
-          fontFamily: "var(--font-saira_stencil_one)",
-          textTransform: "uppercase",
-          fontSize: "7rem",
-          color: `${notFoundCTAColor}`,
-        }}
-      >
+    <div className="flex flex-col gap-4 justify-center items-center py-24">
+      <h1 className="font-[family-name:var(--font-saira_stencil_one)] uppercase text-7xl text-foreground">
         404
-      </Heading>
-      <Heading
-        as="h2"
-        sx={{
-          fontFamily: "var(--font-saira_stencil_one)",
-          textTransform: "uppercase",
-          fontSize: "4rem",
-          color: `${notFoundCTAColor}`,
-        }}
-      >
+      </h1>
+      <h2 className="font-[family-name:var(--font-saira_stencil_one)] uppercase text-6xl text-foreground">
         Page Not Found
-      </Heading>
-      <Link as={NextLink} href="/" color={backBtnColor} marginTop={"4rem"}>
+      </h2>
+      <Link
+        href="/"
+        className="text-blue-500 dark:text-blue-300 hover:underline mt-16"
+      >
         Back to Home
       </Link>
-    </Flex>
+    </div>
   );
 }

@@ -1,31 +1,26 @@
-import {
-  SimpleGrid,
-  Link as LinkItem,
-  useColorModeValue,
-} from "@chakra-ui/react";
+"use client";
+
 import Link from "next/link";
 import { GridItems } from "../lib/helpers";
+
 const Footer = () => {
-  const linkColor = useColorModeValue("grayish", "gray.400");
   return (
-    <SimpleGrid
-      columns={[1, 3]}
-      spacing={10}
-      p={["0 0 8rem 0", "0 0 8rem 0", "0 0 4rem 0", "0 0 4rem 0"]}
-    >
-      {GridItems.map((item, index) => (
-        <LinkItem
-          as={Link}
-          href={item.url}
-          key={index}
-          fontSize="1.4rem"
-          color={linkColor}
-          target={item.url[0] === "/" ? "_self" : "_blank"}
-        >
-          {item.name}
-        </LinkItem>
-      ))}
-    </SimpleGrid>
+    <footer className="pb-32 sm:pb-32 md:pb-16 lg:pb-16">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 sm:gap-10">
+        {GridItems.map((item, index) => (
+          <Link
+            href={item.url}
+            key={index}
+            target={item.url[0] === "/" ? "_self" : "_blank"}
+            rel={item.url[0] === "/" ? undefined : "noopener noreferrer"}
+            className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-200 hover:underline"
+          >
+            {item.name}
+          </Link>
+        ))}
+      </div>
+    </footer>
   );
 };
+
 export default Footer;

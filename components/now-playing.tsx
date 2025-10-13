@@ -66,9 +66,9 @@ const NowPlaying = () => {
       </div>
 
       {data?.isPlaying && (
-        <div className="flex items-center gap-4">
+        <div className="flex items-start sm:items-center gap-4">
           <AnimatedBars />
-          <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-1 sm:gap-2">
             <a
               href={data.songUrl}
               target="_blank"
@@ -79,7 +79,10 @@ const NowPlaying = () => {
             </a>
             <span className="hidden sm:inline text-muted-foreground">-</span>
             <span className="text-sm text-muted-foreground">{data.artist}</span>
-            <Badge variant="secondary" className="w-fit">
+            <Badge
+              variant="secondary"
+              className="w-fit text-[.6rem] font-bold bg-green-100 border-none text-green-700 dark:bg-green-900 dark:text-green-400"
+            >
               Playing
             </Badge>
           </div>

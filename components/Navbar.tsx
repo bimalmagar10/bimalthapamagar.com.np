@@ -23,17 +23,16 @@ const NavItem = ({ href, text }: NavItemProps) => {
 
   return (
     <NavigationMenuItem>
-      <Link href={href} legacyBehavior passHref>
-        <NavigationMenuLink
-          className={cn(
-            navigationMenuTriggerStyle(),
-            "font-normal hover:font-semibold transition-all duration-200",
-            isActive && "font-bold bg-accent text-accent-foreground"
-          )}
-        >
-          {text}
-        </NavigationMenuLink>
-      </Link>
+      <NavigationMenuLink
+        asChild
+        className={cn(
+          navigationMenuTriggerStyle(),
+          "font-normal hover:font-semibold transition-all duration-200",
+          isActive && "font-bold bg-accent text-accent-foreground"
+        )}
+      >
+        <Link href={href}>{text}</Link>
+      </NavigationMenuLink>
     </NavigationMenuItem>
   );
 };
@@ -45,7 +44,6 @@ const Navbar = () => {
         <NavItem href="/" text="Home" />
         <NavItem href="/blogs" text="Blogs" />
         <NavItem href="/snippets" text="Snippets" />
-        <NavItem href="/about-me" text="About Me" />
       </NavigationMenuList>
     </NavigationMenu>
   );

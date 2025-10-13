@@ -1,58 +1,34 @@
 "use client";
-import {
-  Flex,
-  Text,
-  Divider,
-  Box,
-  useColorModeValue,
-  Icon,
-  Tooltip,
-} from "@chakra-ui/react";
-import Head from "next/head";
-import { IoLocationOutline } from "react-icons/io5";
-import Header from "./header";
+import { MapPin } from "lucide-react";
 import AboutMe from "./AboutMe";
 import ProfileImage from "./ProfileImage";
+import { Separator } from "./ui/separator";
 
 const AboutMeRoot = () => {
-  const aboutTextColor = useColorModeValue("lightgrayish", "gray.400");
-  const contactBorder = useColorModeValue("#deecff", "#2c2c2c");
-  const inputColor = useColorModeValue("white", "#2c2c2c");
-  const imgBorder = useColorModeValue("gray.900", "lightwhite");
-
   return (
     <>
-      <Flex direction="row" align="center" mb="3rem">
+      <div className="flex flex-row items-center mb-12">
         <ProfileImage />
-        <Box ml="1rem">
-          <Text fontWeight="700" fontSize="2rem">
+        <div className="ml-4">
+          <h2 className="font-bold text-3xl text-foreground">
             Bimal Thapa Magar
-          </Text>
-          <Text fontSize="1.6rem" fontWeight="500" color={aboutTextColor}>
+          </h2>
+          <p className="text-2xl font-medium text-muted-foreground">
             Software Engineer
-          </Text>
-          <Tooltip label="Kathmandu,Nepal" fontSize="1.3rem">
-            <Text
-              fontSize="1.6rem"
-              fontWeight="400"
-              p={0}
-              color={aboutTextColor}
-              style={{ display: "flex", alignItems: "center" }}
-            >
-              <Icon as={IoLocationOutline} pt="1" />
-              <Box
-                as="span"
-                fontSize="1.3rem"
-                style={{ display: "inline-block", marginTop: "3px" }}
-              >
-                United States of America
-              </Box>
-            </Text>
-          </Tooltip>
-        </Box>
-      </Flex>
+          </p>
+          <div
+            className="flex items-center text-2xl font-normal text-muted-foreground group relative"
+            title="Kathmandu, Nepal"
+          >
+            <MapPin className="h-5 w-5 mr-1" />
+            <span className="text-xl inline-block mt-1">
+              United States of America
+            </span>
+          </div>
+        </div>
+      </div>
       <AboutMe />
-      <Divider mt="1rem" />
+      <Separator className="mt-4" />
     </>
   );
 };

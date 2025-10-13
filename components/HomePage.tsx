@@ -5,40 +5,43 @@ import { cn } from "@/lib/utils";
 import MyTopTracks from "./MyTopTracks";
 import ProfileImage from "./ProfileImage";
 import FontTester from "./FontTester";
+import { TextHighlighter } from "./text-highlighter";
 
 const HomePage = () => {
   return (
     <div className="space-y-16">
       {/** Intro section starts here */}
-      <div className="mb-16">
-        <div className="space-y-4">
-          <div className="flex items-center justify-between w-full">
-            <h1 className="!text-7xl font-black text-left z-10 w-full">
+      <div className="mb-10">
+        <div className="space-y-2">
+          <div className="flex items-center justify-between w-full mb-5 sm:mb-2">
+            <h1 className="!text-5xl font-black text-left z-10 w-full">
               Hi!&nbsp;
               <span className="inline-block animate-wave">
                 👋
               </span> I&rsquo;m{" "}
-              <span
-                className={cn(
-                  "relative inline-block font-open-sans",
-                  "after:content-[''] after:absolute after:h-4 after:w-[calc(100%+10px)]",
-                  "after:left-[-5%] after:bottom-[10%] after:bg-[#ffc725] after:-z-10"
-                )}
+              <TextHighlighter
+                action="highlight"
+                color="#ffc725"
+                className="dark:text-black"
               >
                 Bimal.
-              </span>
+              </TextHighlighter>{" "}
             </h1>
             <ProfileImage />
           </div>
-          <p className="!text-lg leading-relaxed text-justify font-semibold">
-            My name is Bimal Thapa Magar. I am a dedicated software engineer
-            with a passion for Deep Learning, Data Structures and Algorithms,
-            and also React.js.
+          <p className="!text-md leading-relaxed text-justify font-normal">
+            My name is Bimal Thapa Magar. I am currently based in the{" "}
+            <strong>United States of America.</strong> I love to train deep
+            neural networks. I am passionate about making efficient large
+            language models and how can we make it environment friendly. I also
+            can build scalable software applications. I have 3.5 years of
+            experience working as a software engineer. In my free time, I love
+            to play guitar and write songs.Other than that, I can cook large
+            varieties of South Asian dishes.I love <strong>cooking</strong> more
+            than eating.
           </p>
         </div>
       </div>
-      {/** Intro section ends here */}
-
       <MyTopTracks />
       <Separator className="mt-4" />
     </div>

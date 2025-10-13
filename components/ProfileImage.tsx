@@ -7,13 +7,19 @@ interface ProfileImageProps {
 
 const ProfileImage = ({ className }: ProfileImageProps) => {
   return (
-    <div className={cn("relative w-[100px] h-[100px]", className)}>
+    <div
+      className={cn(
+        "relative aspect-square w-[120px] sm:w-[130px] md:w-[140px] rounded-full overflow-hidden border-2 border-gray-900 dark:border-white",
+        className
+      )}
+    >
       <Image
         src="/images/profile.jpg"
         alt="Bimal Thapa Magar"
-        width={100}
-        height={100}
-        className="rounded-full border-2 border-gray-900 dark:border-white object-cover w-full h-full"
+        fill
+        className="object-cover"
+        sizes="(max-width: 640px) 120px, (max-width: 768px) 130px, 140px"
+        quality={75}
         priority
       />
     </div>

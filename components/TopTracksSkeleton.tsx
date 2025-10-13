@@ -6,21 +6,20 @@ const TopTracksSkeleton = () => {
   const id = useId();
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-0">
       {Array.from({ length: 10 }, (_, idx) => idx).map((_, idx) => (
         <div
           key={id + idx}
           className={cn(
-            "p-4 border border-gray-400 rounded-lg cursor-not-allowed",
-            "flex justify-between items-center"
+            "flex items-center gap-4 py-4 px-2 rounded-lg cursor-not-allowed"
           )}
         >
-          <div className="flex flex-col justify-between space-y-3">
-            <Skeleton className="h-6 w-80 rounded-sm" />
-            <Skeleton className="h-4 w-96 rounded-sm" />
-          </div>
-          <div>
-            <Skeleton className="h-20 w-20 rounded-sm" />
+          <div className="flex items-center gap-4 flex-1">
+            <Skeleton className="flex-shrink-0 w-12 h-12 rounded-md" />
+            <div className="flex-1 min-w-0 space-y-2">
+              <Skeleton className="h-5 w-full max-w-[250px] sm:max-w-[300px] md:max-w-[400px] rounded" />
+              <Skeleton className="h-4 w-full max-w-[180px] sm:max-w-[220px] md:max-w-[280px] rounded" />
+            </div>
           </div>
         </div>
       ))}

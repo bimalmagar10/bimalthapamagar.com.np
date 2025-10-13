@@ -6,26 +6,25 @@ const nextConfig: NextConfig = {
   compiler: {
     removeConsole: false,
   },
-  // Enable Turbopack for development
+  transpilePackages: ["next-mdx-remote"],
   experimental: {
     turbo: {
       rules: {
-        // Configure custom file handling if needed
         "*.svg": {
           loaders: ["@svgr/webpack"],
           as: "*.js",
         },
       },
     },
-    // Enable other experimental features
-    optimizePackageImports: ["@chakra-ui/react", "react-icons"],
+    optimizePackageImports: ["lucide-react"],
   },
-  // Performance optimizations
   images: {
     formats: ["image/webp", "image/avif"],
     domains: ["i.scdn.co"],
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    minimumCacheTTL: 60,
   },
-  // Enable bundle analyzer in development
   ...(process.env.ANALYZE === "true" && {
     bundlePagesRouterDependencies: true,
   }),

@@ -1,15 +1,13 @@
-import { WarningIcon } from "@chakra-ui/icons";
-import { Alert, useColorModeValue } from "@chakra-ui/react";
-import { Music } from "lucide-react";
+import { AlertCircle, Music } from "lucide-react";
 import Link from "next/link";
 import useSWR from "swr";
 import { fetcher } from "../lib/helpers";
 import TopTracksSkeleton from "./TopTracksSkeleton";
 import Image from "next/image";
 import { Separator } from "./ui/separator";
+import { Alert, AlertDescription } from "./ui/alert";
 
 const MyTopTracks = () => {
-  const bg = useColorModeValue("gray.100", "gray.800");
   const { data, isLoading } = useSWR(`/api/top-tracks`, fetcher);
 
   return (
@@ -27,7 +25,7 @@ const MyTopTracks = () => {
             data.tracks.map((track: any, idx: any) => (
               <div
                 key={track.id + "-" + idx}
-                className="group flex items-center gap-4 py-4 px-0 hover:bg-muted/30 transition-colors duration-200 rounded-lg"
+                className="group flex items-center gap-4 py-4 px-2 hover:bg-muted/30 transition-colors duration-200 rounded-lg cursor-pointer"
               >
                 <div className="flex items-center gap-4 flex-1">
                   <div className="relative flex-shrink-0 w-12 h-12 overflow-hidden rounded-md bg-muted">
@@ -36,7 +34,7 @@ const MyTopTracks = () => {
                       alt={`${track.title} cover`}
                       height={48}
                       width={48}
-                      objectFit="cover"
+                      className="object-cover"
                     />
                   </div>
 
@@ -45,11 +43,11 @@ const MyTopTracks = () => {
                       href={track.songUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="font-semibold text-foreground text-base leading-tight mb-1 truncate"
+                      className="font-semibold text-foreground text-base leading-tight mb-1 block hover:underline"
                     >
                       {track.title}
                     </Link>
-                    <p className="text-muted-foreground text-sm truncate">
+                    <p className="text-muted-foreground text-sm">
                       {track.artist}
                     </p>
                   </div>
@@ -57,12 +55,10 @@ const MyTopTracks = () => {
               </div>
             ))
           ) : (
-            <>
-              <Alert status="error">
-                <WarningIcon mr="1rem" color="crimson" />
-                No Tracks to Show!
-              </Alert>
-            </>
+            <Alert variant="destructive">
+              <AlertCircle className="h-4 w-4" />
+              <AlertDescription>No Tracks to Show!</AlertDescription>
+            </Alert>
           )
         ) : (
           <TopTracksSkeleton />

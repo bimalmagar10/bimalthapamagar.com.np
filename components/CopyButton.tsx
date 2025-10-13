@@ -1,37 +1,35 @@
 "use client";
 
 import { useState } from "react";
-import { CopyIcon, CheckIcon } from "@chakra-ui/icons";
-import { Button, useColorMode } from "@chakra-ui/react";
+import { Copy, Check } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
-const CopyButton = (props) => {
-  const { colorMode } = useColorMode();
+interface CopyButtonProps {
+  text: string;
+}
+
+const CopyButton = ({ text }: CopyButtonProps) => {
   const [isCopied, setIsCopied] = useState(false);
+
   const copy = async () => {
-    await navigator.clipboard.writeText(props?.text);
+    await navigator.clipboard.writeText(text);
     setIsCopied(true);
 
     setTimeout(() => {
       setIsCopied(false);
     }, 2000);
   };
-  const Icon = isCopied ? CheckIcon : CopyIcon;
+
+  const Icon = isCopied ? Check : Copy;
+
   return (
     <Button
-      variant={"outline"}
+      variant="outline"
       disabled={isCopied}
       onClick={copy}
-      leftIcon={<Icon />}
-      backgroundColor={colorMode == "light" ? "gray.200" : "black.800"}
-      color={colorMode == "light" ? "black.800" : "white"}
-      p={"1.5rem 1rem"}
-      style={{
-        position: "absolute",
-        right: "1rem",
-        top: "3rem",
-      }}
-      fontSize={"1.4rem"}
+      className="absolute right-4 top-12 px-4 py-6 text-base bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700"
     >
+      <Icon className="mr-2 h-4 w-4" />
       {isCopied ? "Copied!" : "Copy"}
     </Button>
   );

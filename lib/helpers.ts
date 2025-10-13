@@ -42,10 +42,6 @@ const GridItems = [
     url: "/",
   },
   {
-    name: "About Me",
-    url: "/about-me",
-  },
-  {
     name: "Blog",
     url: "/blogs",
   },

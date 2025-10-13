@@ -1,89 +1,51 @@
-import {
-  Link,
-  Box,
-  Flex,
-  VStack,
-  Text,
-  useColorModeValue,
-} from "@chakra-ui/react";
-import NextLink from "next/link";
-import { GoHomeFill } from "react-icons/go";
-import { FaFilePen, FaCircleUser } from "react-icons/fa6";
+"use client";
+import Link from "next/link";
+import { Home, FileText, Code2, User } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useMemo } from "react";
-import { AiFillSnippets } from "react-icons/ai";
 
 const MobileNav = () => {
-  const bgColor = useColorModeValue("#fff", "gray.800");
-  const navbarShadow = useColorModeValue("mobileNavLight", "mobileNavDark");
-  const activeColor = useColorModeValue("#245B95", "#90B9E4");
-  const inactiveColor = useColorModeValue("gray.700", "gray.300");
   const uri = usePathname();
-  let regexForBlogsRoute = useMemo(() => {
+  const regexForBlogsRoute = useMemo(() => {
     return new RegExp(/^\/blogs(?:\/[\w-]+)*$/);
   }, []);
 
+  const navItems = [
+    { href: "/", icon: Home, label: "Home", isActive: uri === "/" },
+    {
+      href: "/blogs",
+      icon: FileText,
+      label: "Blogs",
+      isActive: regexForBlogsRoute.test(uri),
+    },
+    {
+      href: "/snippets",
+      icon: Code2,
+      label: "Snippets",
+      isActive: uri.includes("snippets"),
+    },
+  ];
+
   return (
-    <>
-      <Box
-        display={["block", "block", "none", "none"]}
-        width="100%"
-        boxShadow={navbarShadow}
-        padding={["1.2rem 3rem", "1.2rem 6rem", "1.2rem 6rem", "1.2rem 6rem"]}
-        position="fixed"
-        bottom="0"
-        left="0"
-        backgroundColor={bgColor}
-      >
-        <Flex justifyContent="space-between" alignItems="center">
-          <Link as={NextLink} href="/" textDecoration="unset !important">
-            <VStack
-              align="center"
-              spacing="0"
-              color={uri === "/" ? activeColor : inactiveColor}
+    <nav className="block md:hidden w-full shadow-lg fixed bottom-0 left-0 bg-background border-t z-50 px-5 py-2">
+      <div className="flex justify-between items-center">
+        {navItems.map(({ href, icon: Icon, label, isActive }) => (
+          <Link key={href} href={href} className="no-underline">
+            <div
+              className={`flex flex-col items-center gap-1 ${
+                isActive
+                  ? "text-[#245B95] dark:text-[#90B9E4]"
+                  : "text-gray-700 dark:text-gray-300"
+              }`}
             >
-              <GoHomeFill fontSize="1.9rem" />
-              <Text fontSize="1.2rem">Home</Text>
-            </VStack>
+              <Icon className="h-5 w-5" />
+              <span className="text-[.75rem]">{label}</span>
+            </div>
           </Link>
-          <Link as={NextLink} href="/blogs" textDecoration="unset !important">
-            <VStack
-              align="center"
-              color={regexForBlogsRoute.test(uri) ? activeColor : inactiveColor}
-            >
-              <FaFilePen fontSize="1.8rem" />
-              <Text fontSize="1.2rem">Blogs</Text>
-            </VStack>
-          </Link>
-          <Link
-            as={NextLink}
-            href="/snippets"
-            textDecoration="unset !important"
-          >
-            <VStack
-              align="center"
-              color={uri.includes("snippets") ? activeColor : inactiveColor}
-            >
-              <AiFillSnippets fontSize="1.8rem" />
-              <Text fontSize="1.2rem">Snippets</Text>
-            </VStack>
-          </Link>
-          <Link
-            as={NextLink}
-            href="/about-me"
-            textDecoration="unset !important"
-          >
-            <VStack
-              align="center"
-              color={uri === "/about-me" ? activeColor : inactiveColor}
-            >
-              <FaCircleUser fontSize="1.8rem" />
-              <Text fontSize="1.2rem">About Me</Text>
-            </VStack>
-          </Link>
-        </Flex>
-      </Box>
-    </>
+        ))}
+      </div>
+    </nav>
   );
 };
+
 export default MobileNav;
