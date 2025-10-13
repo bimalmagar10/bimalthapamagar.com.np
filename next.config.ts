@@ -4,7 +4,7 @@ import { type NextConfig } from "next";
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   compiler: {
-    removeConsole: false,
+    removeConsole: true,
   },
   transpilePackages: ["next-mdx-remote"],
   experimental: {
@@ -20,7 +20,13 @@ const nextConfig: NextConfig = {
   },
   images: {
     formats: ["image/webp", "image/avif"],
-    domains: ["i.scdn.co"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "i.scdn.co",
+        pathname: "/**",
+      },
+    ],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 90, 96, 128, 256, 384],
     minimumCacheTTL: 60,
