@@ -48,10 +48,6 @@ const GridItems = [
     url: "https://github.com/bimalmagar10",
   },
   {
-    name: "Works",
-    url: "/works",
-  },
-  {
     name: "Linked In",
     url: "https://www.linkedin.com/in/bimal-thapa-magar-6582b0256",
   },
