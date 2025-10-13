@@ -3,9 +3,15 @@ import fs from "fs";
 import matter from "gray-matter";
 const blogDirectory = path.join(process.cwd(), "blogs");
 
+interface BlogData {
+  slug: string;
+  date?: string;
+  [key: string]: string | number | string[] | undefined;
+}
+
 export function getSortedBlogsData() {
   const fileNames = fs.readdirSync(blogDirectory);
-  const allBlogsData = fileNames.map((filename) => {
+  const allBlogsData: BlogData[] = fileNames.map((filename) => {
     const slug = filename.replace(/\.md$/, "");
 
     const fullPath = path.join(blogDirectory, filename);
@@ -17,10 +23,12 @@ export function getSortedBlogsData() {
       ...matterResults.data,
     };
   });
-  return allBlogsData.sort(({ date: a }, { date: b }) => {
-    if (a < b) {
+  return allBlogsData.sort((a, b) => {
+    const dateA = String(a.date || "");
+    const dateB = String(b.date || "");
+    if (dateA < dateB) {
       return 1;
-    } else if (a > b) {
+    } else if (dateA > dateB) {
       return -1;
     } else {
       return 0;
@@ -38,7 +46,7 @@ export function getAllBlogSlugs() {
   });
 }
 
-export async function getBlogData(slug) {
+export async function getBlogData(slug: string) {
   const fullPath = path.join(blogDirectory, `${slug}.md`);
   const fileContents = fs.readFileSync(fullPath, "utf8");
   const { data, content } = matter(fileContents);

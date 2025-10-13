@@ -7,7 +7,7 @@ const Header = () => {
   return (
     <header
       className={cn(
-        "mb-10 px-2 py-4 flex items-center justify-center md:justify-between",
+        "mb-5 sm:mb-10 px-2 py-4 flex items-center justify-center md:justify-between",
         "sticky top-0 z-[100]",
         "backdrop-blur-md backdrop-saturate-180",
         "bg-background/80 border-b border-border/50",

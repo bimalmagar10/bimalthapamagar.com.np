@@ -7,6 +7,14 @@ import Image from "next/image";
 import { Separator } from "./ui/separator";
 import { Alert, AlertDescription } from "./ui/alert";
 
+interface Track {
+  id: string;
+  title: string;
+  artist: string;
+  imageUrl: string;
+  songUrl: string;
+}
+
 const MyTopTracks = () => {
   const { data, isLoading } = useSWR(`/api/top-tracks`, fetcher);
 
@@ -22,7 +30,7 @@ const MyTopTracks = () => {
       <div className="space-y-0 mb-0">
         {!isLoading ? (
           data && data?.tracks?.length > 0 ? (
-            data.tracks.map((track: any, idx: any) => (
+            data.tracks.map((track: Track, idx: number) => (
               <div
                 key={track.id + "-" + idx}
                 className="group flex items-center gap-4 py-4 px-2 hover:bg-muted/30 transition-colors duration-200 rounded-lg cursor-pointer"

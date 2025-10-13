@@ -1,10 +1,8 @@
 "use client";
 
 import { Separator } from "@/components/ui/separator";
-import { cn } from "@/lib/utils";
 import MyTopTracks from "./MyTopTracks";
 import ProfileImage from "./ProfileImage";
-import FontTester from "./FontTester";
 import { TextHighlighter } from "./text-highlighter";
 
 const HomePage = () => {

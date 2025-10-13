@@ -1,7 +1,5 @@
 import { ThemeProvider } from "@/components/theme-provider";
 import {
-  Mulish,
-  Rubik,
   Inter,
   Playfair_Display,
   JetBrains_Mono,
@@ -24,20 +22,6 @@ export const metadata: Metadata = {
   description:
     "Welcome to my site.I'm Bimal Thapa Magar and I am ReactJS enthusiast, Electronics and Communication Engineer and a guitar player.",
 };
-
-const mulish = Mulish({
-  weight: ["300", "400", "500", "600", "700", "800"],
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-mulish",
-});
-
-const rubik = Rubik({
-  weight: ["300", "400", "500", "600", "700", "800"],
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-rubik",
-});
 
 const inter = Inter({
   weight: ["300", "400", "500", "600", "700"],

@@ -87,7 +87,7 @@ const BlogsPage = ({ allSortedBlogs }: BlogsPageProps) => {
                 slug={blog.slug}
                 title={blog.title}
                 date={blog.date}
-                summary={blog.description || blog.shortTheme}
+                summary={String(blog.description || blog.shortTheme || "")}
                 content={blog.content}
                 tags={blog.tags}
               />

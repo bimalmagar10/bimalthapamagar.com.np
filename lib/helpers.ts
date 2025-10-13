@@ -1,21 +1,22 @@
 import { formatDistanceToNowStrict, format, parseISO } from "date-fns";
-const timeFormatter = (date, time) => {
+
+const timeFormatter = (date: string, time: string) => {
   const dateResult = date.split("-");
   const timeResult = time.split(":");
 
   return formatDistanceToNowStrict(
     new Date(
-      dateResult[0],
-      dateResult[1] - 1,
-      dateResult[2],
-      timeResult[0],
-      timeResult[1],
-      timeResult[2]
+      parseInt(dateResult[0]),
+      parseInt(dateResult[1]) - 1,
+      parseInt(dateResult[2]),
+      parseInt(timeResult[0]),
+      parseInt(timeResult[1]),
+      parseInt(timeResult[2])
     )
   );
 };
 
-const dateFormatter = (date) => {
+const dateFormatter = (date: string) => {
   return format(parseISO(date), "d MMMM, yyyy");
 };
 const skillsLists = [
@@ -30,12 +31,9 @@ const skillsLists = [
   { name: "Git" },
   { name: "Data Structures and Algorithms" },
 ];
-const fetcher = (url) => fetch(url).then((res) => res.json());
-const ChakraMotionBox = (chakra, motion, isValidMotionProp) => {
-  return chakra(motion.div, {
-    shouldForwardProp: (prop) => isValidMotionProp(prop) || prop === "children",
-  });
-};
+
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
+
 const GridItems = [
   {
     name: "Home",
@@ -59,18 +57,25 @@ const GridItems = [
   },
 ];
 
-const getFileNamesWithoutMDXExtension = (namesWithMDXExtension) => {
+const getFileNamesWithoutMDXExtension = (namesWithMDXExtension: string[]) => {
   if (namesWithMDXExtension?.length > 0) {
-    return namesWithMDXExtension.map((filename) => {
+    return namesWithMDXExtension.map((filename: string) => {
       return filename.replace(/\.mdx$/, "");
     });
   }
   return [];
 };
 
-const getSnippetsFromCategory = (snippets, category) => {
+interface Snippet {
+  slug: string;
+  title: string;
+  date: string;
+  category?: string;
+}
+
+const getSnippetsFromCategory = (snippets: Snippet[], category: string) => {
   return snippets?.length > 0
-    ? snippets.filter((snippet) => snippet?.category === category)
+    ? snippets.filter((snippet: Snippet) => snippet?.category === category)
     : [];
 };
 
@@ -79,7 +84,6 @@ export {
   dateFormatter,
   skillsLists,
   fetcher,
-  ChakraMotionBox,
   GridItems,
   getFileNamesWithoutMDXExtension,
   getSnippetsFromCategory,

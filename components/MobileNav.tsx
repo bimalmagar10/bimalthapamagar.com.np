@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { Home, FileText, Code2, User } from "lucide-react";
+import { Home, FileText, Code2 } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useMemo } from "react";
 

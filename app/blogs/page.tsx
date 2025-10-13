@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 
 async function getBlogs() {
   try {
-    let allSortedBlogs = await getAllBlogsData();
+    const allSortedBlogs = await getAllBlogsData();
 
     if (allSortedBlogs && allSortedBlogs?.length > 0) {
       const blogsDirectory = path.join(process.cwd(), "blogs");

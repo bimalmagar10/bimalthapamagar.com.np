@@ -1,10 +1,6 @@
 import NextLink from "next/link";
 import { ArrowRight, Clock, Calendar, Tag } from "lucide-react";
-import {
-  formatShortDate,
-  getReadingTime,
-  createTagInitials,
-} from "@/lib/utils";
+import { formatShortDate, getReadingTime } from "@/lib/utils";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 

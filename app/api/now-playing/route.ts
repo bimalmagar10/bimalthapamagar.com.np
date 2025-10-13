@@ -3,8 +3,8 @@ import { getNowPlaying } from "../../../lib/spotify";
 import { SpotifyNowPlayingResponse, SpotifyArtist } from "../../../lib/types";
 
 export const dynamic = "force-dynamic";
-
-export async function GET(request: NextRequest) {
+//eslint-disable-next-line @typescript-eslint/no-unused-vars
+export async function GET(_request: NextRequest) {
   const response = await getNowPlaying();
   if (response?.status === 204 || response?.status > 400) {
     return NextResponse.json({ isPlaying: false }, { status: 200 });
@@ -34,7 +34,8 @@ export async function GET(request: NextRequest) {
         status: 200,
       }
     );
-  } catch (err) {
+    //eslint-disable-next-line @typescript-eslint/no-unused-vars
+  } catch (_err) {
     return NextResponse.json(
       {
         isPlaying: false,

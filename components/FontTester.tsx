@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import React from "react";
 
 const FontTester = () => {
   return (
@@ -75,11 +75,11 @@ const FontTester = () => {
           <code className="text-lg font-jetbrains bg-muted px-3 py-2 rounded block">
             const fontStack = &#123;
             <br />
-            &nbsp;&nbsp;primary: "Mulish",
+            &nbsp;&nbsp;primary: &quot;Mulish&quot;,
             <br />
-            &nbsp;&nbsp;secondary: "Rubik",
+            &nbsp;&nbsp;secondary: &quot;Rubik&quot;,
             <br />
-            &nbsp;&nbsp;tertiary: "Inter"
+            &nbsp;&nbsp;tertiary: &quot;Inter&quot;
             <br />
             &#125;;
           </code>

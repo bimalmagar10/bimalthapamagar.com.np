@@ -2,7 +2,7 @@
 import { ReactNode } from "react";
 import Footer from "./Footer";
 import NowPlaying from "./now-playing";
-import Header from "./header";
+import Header from "./Header";
 import MobileNav from "./MobileNav";
 
 interface LayoutProps {

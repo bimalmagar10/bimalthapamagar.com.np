@@ -1,16 +1,17 @@
 import type { MDXComponents } from "mdx/types";
 import Image from "next/image";
 import { CopyToClipboard } from "./CopyToClipboard";
+import React from "react";
 
 // Helper function to extract text content from React children
-function extractTextContent(children: any): string {
+function extractTextContent(children: React.ReactNode): string {
   if (typeof children === "string") {
     return children;
   }
   if (Array.isArray(children)) {
     return children.map(extractTextContent).join("");
   }
-  if (children?.props?.children) {
+  if (React.isValidElement(children) && children.props?.children) {
     return extractTextContent(children.props.children);
   }
   return "";

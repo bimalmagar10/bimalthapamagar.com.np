@@ -38,7 +38,7 @@ const AnimatedBars = () => {
 };
 
 const NowPlaying = () => {
-  const { data, error } = useSWR("/api/now-playing", fetcher, {
+  const { data } = useSWR("/api/now-playing", fetcher, {
     refreshInterval: 1000,
   });
 

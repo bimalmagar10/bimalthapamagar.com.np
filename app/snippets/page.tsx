@@ -2,7 +2,7 @@ import SnippetsPage from "../../components/SnippetsPage";
 import { getAllSnippets } from "../../lib/mdxApi";
 
 async function getSnippets() {
-  let snippets = await getAllSnippets();
+  const snippets = await getAllSnippets();
 
   if (snippets && snippets?.length > 0) {
     return snippets;

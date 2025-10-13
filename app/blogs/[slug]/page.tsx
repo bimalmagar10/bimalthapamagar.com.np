@@ -40,23 +40,27 @@ export async function generateMetadata({
 
   try {
     const post = await getBlogBySlugRaw(slug);
-    const title = post?.matters?.title || "Blog Post";
+    const title = String(post?.matters?.title || "Blog Post");
     const shortTitle = title.split(" ").slice(0, 4).join(" ");
+    const description = String(
+      post?.matters?.description || `Read about ${title}`
+    );
+    const publishedTime = String(post?.matters?.date || "");
+    const tags = Array.isArray(post?.matters?.tags) ? post?.matters?.tags : [];
 
     return {
       title: `${shortTitle}${title.split(" ").length > 4 ? "..." : ""} - Blog`,
-      description: post?.matters?.description || `Read about ${title}`,
+      description: description,
       openGraph: {
         title: `Blog: ${title}`,
-        description:
-          post?.matters?.description ||
-          `Read Bimal Thapa Magar's blog about ${title}`,
+        description: description,
         type: "article",
-        publishedTime: post?.matters?.date,
-        tags: post?.matters?.tags || [],
+        publishedTime: publishedTime,
+        tags: tags,
       },
     };
-  } catch (error) {
+    //eslint-disable-next-line @typescript-eslint/no-unused-vars
+  } catch (_error) {
     return {
       title: "Blog Post Not Found",
       description: "The requested blog post could not be found",
@@ -75,15 +79,21 @@ export default async function SingleBlog({ params }: PageProps) {
       notFound();
     }
 
+    const title = String(matters.title || "");
+    const date = String(matters.date || "");
+    const description = String(matters.description || "");
+    const shortTheme = String(matters.shortTheme || "");
+    const tags = Array.isArray(matters.tags) ? matters.tags : [];
+
     return (
       <div className="min-h-screen bg-background">
-        <div className="max-w-4xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto px-4 py-4 sm:py-8 sm:px-6 lg:px-8">
           <div className="mb-6 sm:mb-8">
             <BackButton />
           </div>
           <header className="mb-8 sm:mb-10">
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-foreground mb-6 font-playfair leading-tight">
-              {matters.title}
+              {title}
             </h1>
             <div className="flex flex-col gap-4 mb-6">
               <div className="flex items-center gap-3">
@@ -109,22 +119,20 @@ export default async function SingleBlog({ params }: PageProps) {
                 </div>
               </div>
               <div className="flex flex-wrap items-center gap-3 sm:gap-4 text-sm text-muted-foreground">
-                {matters.date && (
+                {date && (
                   <>
                     <div className="flex items-center gap-2">
                       <Calendar className="h-4 w-4" />
-                      <time dateTime={matters.date}>
-                        {formatDisplayDate(matters.date)}
-                      </time>
+                      <time dateTime={date}>{formatDisplayDate(date)}</time>
                     </div>
                     <span className="text-muted-foreground/50">•</span>
                   </>
                 )}
-                {matters.date && matters.time && (
+                {date && matters.time && (
                   <>
                     <div className="flex items-center gap-2">
                       <Clock className="h-4 w-4" />
-                      <span>{getRelativeTime(matters.date)}</span>
+                      <span>{getRelativeTime(date)}</span>
                     </div>
                     <span className="text-muted-foreground/50">•</span>
                   </>
@@ -138,13 +146,13 @@ export default async function SingleBlog({ params }: PageProps) {
                   </>
                 )}
 
-                {matters.tags && matters.tags.length > 0 && (
+                {tags && tags.length > 0 && (
                   <>
                     <span className="text-muted-foreground/50">•</span>
                     <div className="flex items-center gap-2">
                       <Tag className="h-4 w-4" />
                       <div className="flex flex-wrap gap-2">
-                        {matters.tags.map((tag: string) => (
+                        {tags.map((tag: string) => (
                           <Badge
                             key={tag}
                             variant="secondary"
@@ -159,9 +167,9 @@ export default async function SingleBlog({ params }: PageProps) {
                 )}
               </div>
             </div>
-            {(matters.description || matters.shortTheme) && (
+            {(description || shortTheme) && (
               <p className="text-base sm:text-lg text-muted-foreground italic leading-relaxed mt-6 border-l-4 border-primary pl-4">
-                {matters.description || matters.shortTheme}
+                {description || shortTheme}
               </p>
             )}
           </header>

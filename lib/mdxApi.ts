@@ -16,7 +16,7 @@ export interface BlogPost {
   tags?: string[];
   category?: string;
   content?: string;
-  [key: string]: any;
+  [key: string]: string | string[] | number | undefined;
 }
 
 export interface BlogContentRaw {
@@ -24,8 +24,13 @@ export interface BlogContentRaw {
   matters: {
     slug: string;
     wordCount?: number;
-    readingTime?: any;
-    [key: string]: any;
+    readingTime?: ReturnType<typeof readingTime>;
+    [key: string]:
+      | string
+      | string[]
+      | number
+      | ReturnType<typeof readingTime>
+      | undefined;
   };
 }
 
