@@ -1,0 +1,243 @@
+---
+title: "How to integrate Automatic Logout after user's inactivity in your React/Next.js(App Router) application. The use of useIdle hook."
+date: "2025-11-05"
+time: "11:40:00"
+shortTheme: "This guide lets you to integrate Automatic Logout on user's inactivity after a specific time interval in your ReactJS web application."
+---
+
+Majority of the authenticated web application these days has a register,login and logout features. This guide let's you explore on how to integrate automatic logout when there's no user's interaction/activity after being logged in after certain interval of time.I will demonstrate the use of **useIdle** hook to detect the user's inactivity in a react application and how it can be integrated with **[next-auth](https://next-auth.js.org/)**, a popular and customisable library to handle authentication in a Next.js application. You can follow the same approach to integrate in your plain ReactJS application.
+
+Let's dive deep into the implementation.
+
+#### 1. Create **useIdle** hook inside your `hooks` directory or anywhere else you will be defining all of your hooks in.
+
+- The main idea is to create a state `isIdle` that will switch between `true or false` based on user's inactivity.`true` if user is **inactive** and `false` if the user is **active**.This will look like:
+
+```typescript
+const [isIdle, setIsIdle] = useState<boolean>(false);
+```
+
+- The term active or inactive you see here is defined by the user's interaction in the website.There are multiple browser events but the the ones that we will be using will be `mousemove`,`mousedown`,`resize`,`keydown`,`touchstart`,`wheel` and `visibilitychange`. Altogether, seven events will be enough to detect the user's inactivity in the browser.
+- The only thing that I our component will be returning is the `isIdle` state at the end.Also, it will take time in milliseconds to check repeatedly whether the use is idle or not.Let's say `ms`.This exact implmentation would look like:
+
+```typescript
+export function useIdle(ms: number = 1000 * 60): boolean {
+  const [isIdle, setIsIdle] = useState<boolean>(false);
+
+  return isIdle;
+}
+```
+
+- Next, we will be defining a utility function called `throttle` that takes callback function which runs at most once every ms milliseconds.Here, it limits how frequently activity events (like `mousemove`) trigger state updates.This prevents excessive re-renders and improves performance by ignoring high-frequency events that would otherwise fire hundreds of times per second.For example, imagine you're in a classroom, and every student is super excited: whenever they have a question, they raise their hand—sometimes waving it as fast as they can, dozens of times per minute.If the teacher stopped the lesson every time a hand went up, even for tiny movements, they'd never get anything done! The whole class would become chaotic and noisy, with constant interruptions.Throttling is like the teacher saying, “I’ll only answer questions once every minute, no matter how many times you wave your hand.” This way, students know they have to wait a bit and can't constantly demand attention. The classroom stays calm, and the teacher’s job is much easier. The teacher still checks regularly (once per minute), but ignores rapid, repeated signals in between.Throttling makes sure you only react to activity signals every so often, not every single time—keeping things running smoothly, just like a calm classroom.Our throttle function would look like this:
+
+```typescript
+function throttle(callback: () => void, ms: number) {
+  let lastTime = 0;
+  return () => {
+    const now = Date.now();
+    if (now - lastTime >= ms) {
+      callback();
+      lastTime = now;
+    }
+  };
+}
+```
+
+- Now, `useEffect` is where the exact magic happens.We will be creating a`timeoutId` to keep track of the current event handler and each a time a new event handler is triggered, we will clear out the previous timer id and then set a new timer.This means when the user stays inactive for the specified time (`ms`), the timeout triggers a timeout function defined as `handleTimeout`, setting `isIdle` to true and when user activity (among those seven events) occurs, the throttled event handler will resets `isIdle` to `false`, clears the current timeout from the previous `timeoutId`, and starts a new timer, which will trigger `handleTimeout` if no activity occurs again for `ms` milliseconds. We have this till now.
+
+```typescript
+useEffect(() => {
+  let timeoutId: number;
+
+  const handleTimeout = () => {
+    setIsIdle(true);
+  };
+
+  const handleEvent = throttle(() => {
+    setIsIdle(false);
+
+    window.clearTimeout(timeoutId);
+    timeoutId = window.setTimeout(handleTimeout, ms);
+  }, 1000); // Throttle events to once per second
+}, []);
+```
+
+- Next imagine a scenario where you will be switching between the tabs in a browser.When you application's tab is active, you have to again restart the timer from the begin and make it active and switch to inactive after the number of milliseconds you pass in the component to detect user's inactivity. Let's define a function `handleVisibilityChange` to execute this implementation.This would look like:
+
+```typescript
+const handleVisibilityChange = () => {
+  if (!document.hidden) {
+    handleEvent();
+  }
+};
+```
+
+- Let's add it to our code.
+
+```typescript
+useEffect(() => {
+  let timeoutId: number;
+
+  const handleTimeout = () => {
+    setIsIdle(true);
+  };
+
+  const handleEvent = throttle(() => {
+    setIsIdle(false);
+
+    window.clearTimeout(timeoutId);
+    timeoutId = window.setTimeout(handleTimeout, ms);
+  }, 1000); // Throttle events to once per second
+
+  const handleVisibilityChange = () => {
+    if (!document.hidden) {
+      handleEvent();
+    }
+  };
+}, []);
+```
+
+- The last thing that remains to add is the eventlisteners for each of those seven events and clear all those events and timeout id when unmounted.The cleanup is necessary to prevent memory leaks.The final implementation would look like this:
+
+```typescript
+import { useEffect, useState } from "react";
+
+function throttle(callback: () => void, ms: number) {
+  let lastTime = 0;
+  return () => {
+    const now = Date.now();
+    if (now - lastTime >= ms) {
+      callback();
+      lastTime = now;
+    }
+  };
+}
+
+export function useIdle(ms: number = 1000 * 60): boolean {
+  const [isIdle, setIsIdle] = useState<boolean>(false);
+
+  useEffect(() => {
+    let timeoutId: number;
+
+    const handleTimeout = () => {
+      setIsIdle(true);
+    };
+
+    const handleEvent = throttle(() => {
+      setIsIdle(false);
+
+      window.clearTimeout(timeoutId);
+      timeoutId = window.setTimeout(handleTimeout, ms);
+    }, 1000); // Throttle events to once per second
+
+    const handleVisibilityChange = () => {
+      if (!document.hidden) {
+        handleEvent();
+      }
+    };
+
+    timeoutId = window.setTimeout(handleTimeout, ms);
+
+    window.addEventListener("mousemove", handleEvent);
+    window.addEventListener("mousedown", handleEvent);
+    window.addEventListener("resize", handleEvent);
+    window.addEventListener("keydown", handleEvent);
+    window.addEventListener("touchstart", handleEvent);
+    window.addEventListener("wheel", handleEvent);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    return () => {
+      window.removeEventListener("mousemove", handleEvent);
+      window.removeEventListener("mousedown", handleEvent);
+      window.removeEventListener("resize", handleEvent);
+      window.removeEventListener("keydown", handleEvent);
+      window.removeEventListener("touchstart", handleEvent);
+      window.removeEventListener("wheel", handleEvent);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      window.clearTimeout(timeoutId);
+    };
+  }, [ms]);
+
+  return isIdle;
+}
+```
+
+- Now, the question is how do you integrate this with next auth or other authentication libraries? The idea is simple.You have to create a component that calls this hook.For instance, let's say you want to automatically logout the user after 30 minutes of inactivity. The first let's define a constant `const idle_timeout = 1000 * 60 * 30` and then create a component to logout the user when there is an inactivity for 30 minutes detected. The implementation would look like:
+
+```typescript:
+"use client"
+import {logOut} from "next-auth/react";
+const idle_timeout = 1000 * 60 * 30;
+export function AutomaticLogout() {
+  const { data: session, status } = useSession(); // From next auth to detect if user is authenticated or not.It can be replaced with your own authentication library.
+  const isIdle = useIdle(idle_timeout); // Returns true after 30 minutes of inactivity
+  const hasLoggedOut = useRef(false);
+
+  useEffect(() => {
+    if (status !== "authenticated" || !session) {
+      return;
+    }
+
+    if (isIdle && !hasLoggedOut.current) {
+      hasLoggedOut.current = true;
+
+      authService.current.logout(true).catch((error) => {
+        console.error("Idle logout failed:", error);
+        logOut();
+      });
+    }
+
+    if (!isIdle && hasLoggedOut.current) {
+      hasLoggedOut.current = false;
+    }
+  }, [isIdle, session, status]);
+
+  return null;
+}
+```
+
+- Use it in your main application layout where inside `AuthProvider`.The implementation would look like this:
+
+```typescript:app/layout.tsx
+import type { Metadata } from "next";
+import { Lato, Geist_Mono } from "next/font/google";
+import "./globals.css";
+import { AuthProvider } from "@/providers/auth-provider";
+import { ThemeProvider } from "@/providers/theme-provider";
+import { AutomaticLogout } from "@/components/automatic-logout";
+
+const lato = Lato({
+  variable: "--font-lato",
+  subsets: ["latin"],
+  weight: ["100", "300", "400", "700", "900"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
+export const metadata: Metadata = {
+  title: "Your app",
+  description: "Generated by create next app",
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${lato.variable} ${geistMono.variable} antialiased`}>
+          <ThemeProvider attribute={"class"}>
+            <AuthProvider>
+              <AutomaticLogout />
+              {children}
+            </AuthProvider>
+          </ThemeProvider>
+      </body>
+    </html>
+  );
+}
+```
