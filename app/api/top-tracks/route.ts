@@ -16,6 +16,7 @@ export async function GET(_request: NextRequest) {
   }
   try {
     const data: SpotifyTopTracksResponse = await response.json();
+    console.log("top-tracks", data);
     const tracks = data.items.slice(0, 10).map((track: SpotifyTrack) => {
       return {
         artist: track.artists
@@ -24,13 +25,15 @@ export async function GET(_request: NextRequest) {
         songUrl: track.external_urls.spotify,
         title: track.name,
         imageUrl: track.album.images.map((image) => image.url)[1],
+        duration_ms: track.duration_ms,
       };
     });
+    console.log("tracks", tracks);
     return NextResponse.json(
       { tracks },
       {
         status: 200,
-      }
+      },
     );
     //eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (_err) {

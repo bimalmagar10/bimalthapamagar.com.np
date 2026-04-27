@@ -6,8 +6,7 @@ import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 
-interface AnimatedThemeTogglerProps
-  extends React.ComponentPropsWithoutRef<"button"> {
+interface AnimatedThemeTogglerProps extends React.ComponentPropsWithoutRef<"button"> {
   duration?: number;
 }
 
@@ -47,7 +46,7 @@ export function ThemeToggle({
     const y = top + height / 2;
     const maxRadius = Math.hypot(
       Math.max(left, window.innerWidth - left),
-      Math.max(top, window.innerHeight - top)
+      Math.max(top, window.innerHeight - top),
     );
 
     document.documentElement.animate(
@@ -61,14 +60,14 @@ export function ThemeToggle({
         duration,
         easing: "ease-in-out",
         pseudoElement: "::view-transition-new(root)",
-      }
+      },
     );
   }, [resolvedTheme, setTheme, duration, mounted]);
 
   if (!mounted) {
     return (
       <Button
-        variant="outline"
+        variant="link"
         size="icon"
         className={cn(className, "cursor-pointer")}
         aria-label="Toggle theme"
@@ -84,7 +83,7 @@ export function ThemeToggle({
     <Button
       ref={buttonRef}
       onClick={toggleTheme}
-      variant="outline"
+      variant="link"
       size="icon"
       className={cn("cursor-pointer", className)}
       aria-label="Toggle theme"
