@@ -1,7 +1,9 @@
 "use client";
 
+import useSWR from "swr";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { fetcher } from "@/lib/helpers";
 
 export const EqBars = ({ animating }: { animating: boolean }) => {
   if (animating) {
@@ -88,9 +90,14 @@ export interface NowPlayingData {
   songUrl?: string;
 }
 
-export default function NowPlaying({ data }: { data: NowPlayingData }) {
-  if (!data) return null;
-  return data.isPlaying ? (
+export default function NowPlaying() {
+  const { data: swrData } = useSWR<NowPlayingData>("/api/now-playing", fetcher, {
+    refreshInterval: 10000,
+    revalidateOnFocus: false,
+  });
+
+  if (!swrData) return null;
+  return swrData.isPlaying ? (
     <div className="mt-[14px] flex items-center gap-[10px] rounded-[10px] border border-border p-[10px_14px] bg-card animate-fade-up">
       <EqBars animating={true} />
       <div className="flex min-w-0 flex-1 items-center gap-[7px]">
@@ -99,15 +106,15 @@ export default function NowPlaying({ data }: { data: NowPlayingData }) {
         </span>
         <span className="text-muted-foreground flex-shrink-0">·</span>
         <a
-          href={data.songUrl}
+          href={swrData.songUrl}
           target="_blank"
           rel="noopener noreferrer"
           className="truncate text-[12px] font-semibold hover:underline"
         >
-          {data.name}
+          {swrData.name}
         </a>
         <span className="flex-shrink-0 truncate text-[12px] text-muted-foreground">
-          — {data.artist}
+          — {swrData.artist}
         </span>
       </div>
       <span
