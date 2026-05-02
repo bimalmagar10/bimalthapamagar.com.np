@@ -1,105 +1,155 @@
 "use client";
 
 import { useState } from "react";
-import { Search, AlertCircle } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
-import PostItemOverlay from "./PostItemOverlay";
-import { Input } from "@/components/ui/input";
-import { Alert, AlertDescription } from "@/components/ui/alert";
+import Link from "next/link";
 import { BlogPost } from "@/lib/mdxApi";
+import { formatShortDate, getReadingTime } from "@/lib/utils";
 
 interface BlogsPageProps {
   allSortedBlogs: BlogPost[];
 }
 
-const BlogsPage = ({ allSortedBlogs }: BlogsPageProps) => {
-  const [searchValue, setSearchValue] = useState("");
+const CATS = ["All", "Life", "Tech"] as const;
+type Cat = (typeof CATS)[number];
 
-  const filteredBlogs =
-    allSortedBlogs && allSortedBlogs?.length > 0
-      ? allSortedBlogs.filter((blog) => {
-          const searchLower = searchValue.toLowerCase();
-          return (
-            blog.title?.toLowerCase().includes(searchLower) ||
-            blog.description?.toLowerCase().includes(searchLower) ||
-            blog.tags?.some((tag) => tag.toLowerCase().includes(searchLower))
-          );
-        })
-      : [];
+function getBlogCategory(blog: BlogPost): "Life" | "Tech" {
+  if (blog.category) {
+    const c = String(blog.category).toLowerCase();
+    if (c === "life" || c === "personal") return "Life";
+    return "Tech";
+  }
+  const tags = blog.tags ?? [];
+  const lifeTerms = ["life", "personal", "relationship", "love", "mental"];
+  if (tags.some((t) => lifeTerms.includes(t.toLowerCase()))) return "Life";
+  return "Tech";
+}
+
+const SearchIcon = () => (
+  <svg
+    width="14"
+    height="14"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <circle cx="11" cy="11" r="8" />
+    <line x1="21" y1="21" x2="16.65" y2="16.65" />
+  </svg>
+);
+
+export default function BlogsPage({ allSortedBlogs }: BlogsPageProps) {
+  const [search, setSearch] = useState("");
+  const [activeCat, setActiveCat] = useState<Cat>("All");
+
+  const filtered = allSortedBlogs.filter((blog) => {
+    const matchesCat =
+      activeCat === "All" || getBlogCategory(blog) === activeCat;
+    const matchesSearch =
+      !search ||
+      blog.title?.toLowerCase().includes(search.toLowerCase()) ||
+      String(blog.description ?? blog.shortTheme ?? "")
+        .toLowerCase()
+        .includes(search.toLowerCase());
+    return matchesCat && matchesSearch;
+  });
 
   return (
-    <div className="w-full max-w-4xl mx-auto">
-      <div className="flex flex-col gap-4 mb-8">
-        <h1 className="text-3xl sm:text-4xl font-bold text-foreground">
-          Blogs - by Bimal Thapa Magar
-        </h1>
-        <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
-          I&apos;ve written these blogs to help you excel some of the skills you
-          lack. Therefore, feel free to read them by searching topics of your
-          interest.
-        </p>
-      </div>
-
-      {/* Search Input */}
-      <div className="relative mb-8">
-        <Input
-          type="text"
-          placeholder="Search posts by title"
-          value={searchValue}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setSearchValue(e.target.value)
-          }
-          className="pl-4 pr-12 py-6 text-base w-full"
-        />
-        <Search className="absolute right-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-      </div>
-      <h2 className="text-2xl sm:text-3xl font-bold text-foreground ">
-        All Posts {filteredBlogs.length > 0 && `(${filteredBlogs.length})`}
-      </h2>
-
-      {!filteredBlogs.length && (
-        <Alert
-          variant="destructive"
-          className="mb-8 mt-4 shadow-none border-none bg-red-100 dark:bg-red-800 dark:text-red-100"
+    <div className="mx-auto max-w-[860px] px-7 pb-4 sm:pb-20">
+      <section
+        className="py-5 pb-7"
+        style={{ animation: "fadeUp 0.4s ease both" }}
+      >
+        <h1
+          className="font-extrabold mb-[10px]"
+          style={{
+            fontSize: "clamp(30px, 5vw, 42px)",
+            letterSpacing: "-0.035em",
+          }}
         >
-          <AlertCircle className="h-4 w-4" />
-          <AlertDescription className="text-red-800 dark:text-red-100">
-            No posts found matching &quot;{searchValue}&quot;. Try a different
-            search term.
-          </AlertDescription>
-        </Alert>
-      )}
+          Writing
+        </h1>
+        <p className="text-[14px] text-muted-foreground mb-7 leading-[1.7]">
+          Thoughts on ML, software, and life. {allSortedBlogs.length} posts
+          total.
+        </p>
 
-      {/* Blog Posts List with Animation */}
-      <div className="space-y-0">
-        <AnimatePresence>
-          {filteredBlogs.map((blog, idx) => (
-            <motion.div
-              key={blog.slug}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{
-                duration: 0.3,
-                delay: idx * 0.05,
-                ease: "easeOut",
-              }}
-              layout
+        {/* Search */}
+        <div className="relative mb-[14px]">
+          <div className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">
+            <SearchIcon />
+          </div>
+          <input
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search posts…"
+            className="w-full rounded-[9px] border border-border bg-card py-[10px] pl-8 pr-3 text-[13px] text-foreground outline-none transition-colors focus:border-foreground"
+          />
+        </div>
+
+        {/* Category chips */}
+        <div className="flex gap-[6px]">
+          {CATS.map((c) => (
+            <button
+              key={c}
+              onClick={() => setActiveCat(c)}
+              className="rounded-full border px-[13px] py-1 text-[12px] font-semibold transition-colors cursor-pointer"
+              style={
+                activeCat === c
+                  ? {
+                      background: "var(--foreground)",
+                      color: "var(--background)",
+                      borderColor: "var(--foreground)",
+                    }
+                  : {
+                      background: "transparent",
+                      color: "var(--muted-foreground)",
+                      borderColor: "var(--border)",
+                    }
+              }
             >
-              <PostItemOverlay
-                slug={blog.slug}
-                title={blog.title}
-                date={blog.date}
-                summary={String(blog.description || blog.shortTheme || "")}
-                content={blog.content}
-                tags={blog.tags}
-              />
-            </motion.div>
+              {c}
+            </button>
           ))}
-        </AnimatePresence>
+        </div>
+      </section>
+
+      {/* Blog list */}
+      <div className="pb-0 sm:pb-4">
+        {filtered.length === 0 && (
+          <p className="py-6 text-[13px] text-muted-foreground">
+            No results for &ldquo;{search}&rdquo;
+          </p>
+        )}
+        {filtered.map((blog, idx) => (
+          <Link
+            key={blog.slug}
+            href={`/blogs/${blog.slug}`}
+            className="flex flex-col sm:flex-row items-start justify-between gap-0 sm:gap-6  border-none pt-2 pb-2 px-0 cursor-pointer"
+            style={{
+              animation: `fadeUp 0.35s ${idx * 0.07}s ease both`,
+            }}
+          >
+            <h3
+              className="flex-1 min-w-0 text-[16px] font-bold leading-[1.45] transition-opacity hover:opacity-45"
+              style={{ letterSpacing: "-0.016em" }}
+            >
+              {blog.title}
+            </h3>
+            <div className="flex-shrink-0 flex items-center gap-2 pt-[2px]">
+              <span className="whitespace-nowrap text-[11px] text-muted-foreground">
+                {blog.content ? getReadingTime(blog.content) : "5 min read"}
+              </span>
+              <span className="text-gray-400">·</span>
+              <span className="whitespace-nowrap text-[11px] text-muted-foreground">
+                {formatShortDate(blog.date)}
+              </span>
+            </div>
+          </Link>
+        ))}
       </div>
     </div>
   );
-};
-
-export default BlogsPage;
+}
