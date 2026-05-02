@@ -6,7 +6,6 @@ import useSWR from "swr";
 import { fetcher } from "@/lib/helpers";
 import { cn, formatShortDate, getReadingTime } from "@/lib/utils";
 import { BlogPost } from "@/lib/mdxApi";
-import { motion } from "framer-motion";
 import NowPlaying from "./now-playing";
 
 interface Track {

@@ -6,7 +6,6 @@ import { Metadata } from "next";
 import { ReactNode } from "react";
 import Header from "@/components/Header";
 import MobileNav from "@/components/MobileNav";
-import NowPlaying from "@/components/now-playing";
 import Footer from "@/components/Footer";
 import { HighlightTheme } from "@/components/HighlightTheme";
 import { Toaster } from "sonner";

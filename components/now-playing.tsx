@@ -1,7 +1,5 @@
 "use client";
 
-import useSWR from "swr";
-import { fetcher } from "@/lib/helpers";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 

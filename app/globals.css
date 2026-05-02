@@ -310,3 +310,8 @@
   animation: none;
   mix-blend-mode: normal;
 }
+
+/* Sonner clipboard success toast styling */
+[data-sonner-toast][data-type="success"] [data-icon] svg {
+  color: #22c55e !important;
+}
