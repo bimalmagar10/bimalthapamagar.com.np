@@ -192,10 +192,10 @@ export default async function SingleBlog({ params }: PageProps) {
             />
           </article>
           <Separator className="mt-12 mb-8" />
-          <div className="flex justify-center sm:justify-start">
+          <div className="flex justify-start">
             <NextLink
               href="/blogs"
-              className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline transition-all group cursor-pointer"
+              className="inline-flex items-center gap-2 rounded-md border border-border px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
             >
               <span>← Back to all blogs</span>
             </NextLink>

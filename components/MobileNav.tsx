@@ -21,11 +21,11 @@ const MobileNav = () => {
   ];
 
   return (
-    <nav className="fixed bottom-[max(1.5rem,calc(env(safe-area-inset-bottom)+0.75rem))] left-0 z-50 w-full md:hidden">
+    <nav className="pointer-events-none fixed bottom-[max(1.5rem,calc(env(safe-area-inset-bottom)+0.75rem))] left-0 z-50 w-full md:hidden">
       <Dock
         iconMagnification={56}
         iconDistance={100}
-        className="border-border/80 bg-background/80 shadow-lg backdrop-blur-xl"
+        className="pointer-events-auto border-border/80 bg-background/80 shadow-lg backdrop-blur-xl"
       >
         {navItems.map(({ href, icon: Icon, label, isActive }) => (
           <DockIcon
