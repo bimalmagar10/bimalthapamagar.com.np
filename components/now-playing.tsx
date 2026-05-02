@@ -91,10 +91,14 @@ export interface NowPlayingData {
 }
 
 export default function NowPlaying() {
-  const { data: swrData } = useSWR<NowPlayingData>("/api/now-playing", fetcher, {
-    refreshInterval: 10000,
-    revalidateOnFocus: false,
-  });
+  const { data: swrData } = useSWR<NowPlayingData>(
+    "/api/now-playing",
+    fetcher,
+    {
+      refreshInterval: 5000,
+      revalidateOnFocus: false,
+    },
+  );
 
   if (!swrData) return null;
   return swrData.isPlaying ? (
