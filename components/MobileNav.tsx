@@ -1,49 +1,56 @@
 "use client";
+
 import Link from "next/link";
-import { Home, FileText, Code2 } from "lucide-react";
+import { Home, FileText } from "lucide-react";
 import { usePathname } from "next/navigation";
-import { useMemo } from "react";
+import { Dock, DockIcon } from "@/components/ui/dock";
+import { ThemeToggle } from "@/components/theme-toggle";
+import { cn } from "@/lib/utils";
 
 const MobileNav = () => {
-  const uri = usePathname();
-  const regexForBlogsRoute = useMemo(() => {
-    return new RegExp(/^\/blogs(?:\/[\w-]+)*$/);
-  }, []);
+  const pathname = usePathname();
 
   const navItems = [
-    { href: "/", icon: Home, label: "Home", isActive: uri === "/" },
+    { href: "/", icon: Home, label: "Home", isActive: pathname === "/" },
     {
       href: "/blogs",
       icon: FileText,
       label: "Blogs",
-      isActive: regexForBlogsRoute.test(uri),
-    },
-    {
-      href: "/snippets",
-      icon: Code2,
-      label: "Snippets",
-      isActive: uri.includes("snippets"),
+      isActive: pathname.startsWith("/blogs"),
     },
   ];
 
   return (
-    <nav className="block md:hidden w-full shadow-lg fixed bottom-0 left-0 bg-background border-t z-50 px-5 py-2">
-      <div className="flex justify-between items-center">
+    <nav className="fixed bottom-[max(1.5rem,calc(env(safe-area-inset-bottom)+0.75rem))] left-0 z-50 w-full md:hidden">
+      <Dock
+        iconMagnification={56}
+        iconDistance={100}
+        className="border-border/80 bg-background/80 shadow-lg backdrop-blur-xl"
+      >
         {navItems.map(({ href, icon: Icon, label, isActive }) => (
-          <Link key={href} href={href} className="no-underline">
-            <div
-              className={`flex flex-col items-center gap-1 ${
-                isActive
-                  ? "text-[#245B95] dark:text-[#90B9E4]"
-                  : "text-gray-700 dark:text-gray-300"
-              }`}
+          <DockIcon
+            key={href}
+            className={cn(
+              "bg-black/10 text-muted-foreground transition-colors dark:bg-white/10",
+              isActive &&
+                "bg-[var(--brand)] text-foreground ring-1 ring-black/10 dark:ring-white/20",
+            )}
+          >
+            <Link
+              href={href}
+              aria-label={label}
+              aria-current={isActive ? "page" : undefined}
+              className="flex h-full w-full items-center justify-center no-underline"
             >
               <Icon className="h-5 w-5" />
-              <span className="text-[.75rem]">{label}</span>
-            </div>
-          </Link>
+            </Link>
+          </DockIcon>
         ))}
-      </div>
+
+        <DockIcon className="bg-black/10 text-muted-foreground transition-colors dark:bg-white/10">
+          <ThemeToggle className="h-full w-full p-0 text-inherit hover:no-underline" />
+        </DockIcon>
+      </Dock>
     </nav>
   );
 };

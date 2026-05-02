@@ -1,6 +1,7 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import readingTime from "reading-time";
+import { toast } from "sonner";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -102,9 +103,7 @@ export async function copyToClipboard(
     // Modern clipboard API
     if (navigator.clipboard && window.isSecureContext) {
       await navigator.clipboard.writeText(text);
-      // Import toast dynamically to avoid server-side issues
-      const { toast } = await import("@/components/toast");
-      toast({ type: "success", description: successMessage });
+      toast.success(successMessage);
       return true;
     } else {
       // Fallback for older browsers or non-secure contexts
@@ -120,16 +119,14 @@ export async function copyToClipboard(
       textArea.remove();
 
       if (successful) {
-        const { toast } = await import("@/components/toast");
-        toast({ type: "success", description: successMessage });
+        toast.success(successMessage);
         return true;
       }
       return false;
     }
   } catch (err) {
     console.error("Failed to copy text: ", err);
-    const { toast } = await import("@/components/toast");
-    toast({ type: "error", description: "Failed to copy to clipboard" });
+    toast.error("Failed to copy to clipboard");
     return false;
   }
 }
