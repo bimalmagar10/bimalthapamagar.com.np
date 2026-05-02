@@ -16,10 +16,7 @@ interface NavItemProps {
 
 const NavItem = ({ href, text }: NavItemProps) => {
   const pathname = usePathname();
-  const isActive =
-    href === "/snippets" || href === "/blogs"
-      ? pathname?.includes(href)
-      : pathname === href;
+  const isActive = href === "/blogs" ? pathname?.includes(href) : pathname === href;
 
   return (
     <NavigationMenuItem>
@@ -43,7 +40,6 @@ const Navbar = () => {
       <NavigationMenuList className="space-x-8">
         <NavItem href="/" text="Home" />
         <NavItem href="/blogs" text="Blogs" />
-        <NavItem href="/snippets" text="Snippets" />
       </NavigationMenuList>
     </NavigationMenu>
   );

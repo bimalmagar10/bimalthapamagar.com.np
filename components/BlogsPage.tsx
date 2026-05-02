@@ -57,9 +57,9 @@ export default function BlogsPage({ allSortedBlogs }: BlogsPageProps) {
   });
 
   return (
-    <div className="mx-auto max-w-[860px] px-7 pb-20">
+    <div className="mx-auto max-w-[860px] px-7 pb-4 sm:pb-20">
       <section
-        className="py-16 pb-7"
+        className="py-5 pb-7"
         style={{ animation: "fadeUp 0.4s ease both" }}
       >
         <h1
@@ -117,7 +117,7 @@ export default function BlogsPage({ allSortedBlogs }: BlogsPageProps) {
       </section>
 
       {/* Blog list */}
-      <div className="pb-4">
+      <div className="pb-0 sm:pb-4">
         {filtered.length === 0 && (
           <p className="py-6 text-[13px] text-muted-foreground">
             No results for &ldquo;{search}&rdquo;
@@ -127,7 +127,7 @@ export default function BlogsPage({ allSortedBlogs }: BlogsPageProps) {
           <Link
             key={blog.slug}
             href={`/blogs/${blog.slug}`}
-            className="flex items-start justify-between gap-6 border-b border-border  pt-4 pb-2 px-2 cursor-pointer"
+            className="flex flex-col sm:flex-row items-start justify-between gap-0 sm:gap-6  border-none pt-2 pb-2 px-0 cursor-pointer"
             style={{
               animation: `fadeUp 0.35s ${idx * 0.07}s ease both`,
             }}

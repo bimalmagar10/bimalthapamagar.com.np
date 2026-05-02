@@ -14,7 +14,6 @@ const GithubIcon = () => (
 const navLinks = [
   { href: "/", label: "home" },
   { href: "/blogs", label: "blogs" },
-  { href: "/resources", label: "resources" },
 ];
 
 export default function Header() {

@@ -4,9 +4,10 @@ import Link from "next/link";
 import Image from "next/image";
 import useSWR from "swr";
 import { fetcher } from "@/lib/helpers";
-import { formatShortDate, getReadingTime } from "@/lib/utils";
+import { cn, formatShortDate, getReadingTime } from "@/lib/utils";
 import { BlogPost } from "@/lib/mdxApi";
 import { motion } from "framer-motion";
+import NowPlaying from "./now-playing";
 
 interface Track {
   id: string;
@@ -69,34 +70,6 @@ const ArrIcon = () => (
   </svg>
 );
 
-const EqBars = () => (
-  <div className="overflow-hidden h-3 flex items-end gap-0.5">
-    <motion.div
-      className="inline-block rounded-t-lg h-full w-[3px] bg-[#1ed05e]"
-      animate={{ y: ["0px", "15px", "0px"], scaleY: [1.0, 1.3, 1.0] }}
-      transition={{ repeat: Infinity, duration: 0.7 }}
-    />
-    <motion.div
-      className="inline-block rounded-t-lg h-full w-[3px] bg-[#1ed05e]"
-      initial={{ y: "0px" }}
-      animate={{ y: ["0px", "16px", "0px"], scaleY: [1.0, 1.2, 1.0] }}
-      transition={{ repeat: Infinity, duration: 1, delay: 0.1 }}
-    />
-    <motion.div
-      className="inline-block rounded-t-lg h-full w-[3px] bg-[#1ed05e]"
-      initial={{ y: "0px" }}
-      animate={{ y: ["0px", "15px", "0px"], scaleY: [1, 1.4, 1] }}
-      transition={{ repeat: Infinity, duration: 0.9, delay: 0.2 }}
-    />
-    <motion.div
-      className="inline-block rounded-t-lg h-full w-[3px] bg-[#1ed05e]"
-      initial={{ y: "0px" }}
-      animate={{ y: ["0px", "16px", "0px"], scaleY: [1.0, 0.5, 1.0] }}
-      transition={{ repeat: Infinity, duration: 1.1, delay: 0.1 }}
-    />
-  </div>
-);
-
 interface HomePageProps {
   recentBlogs: BlogPost[];
 }
@@ -117,7 +90,7 @@ export default function HomePage({ recentBlogs }: HomePageProps) {
   return (
     <div className="mx-auto max-w-[860px] px-7 pb-16">
       {/* Hero */}
-      <section className="py-[72px] pb-14">
+      <section className="py-[60px] pb-14">
         <div className="flex sm:items-start justify-between gap-2 flex-wrap flex-col-reverse items-center flex sm:flex-row sm:flex-wrap">
           <div className="flex-1">
             <p className="text-[12px] text-center sm:text-start font-semibold text-muted-foreground uppercase tracking-[0.07em] mb-4">
@@ -153,14 +126,16 @@ export default function HomePage({ recentBlogs }: HomePageProps) {
             <div className="flex gap-[10px] flex-wrap">
               <Link
                 href="/blogs"
-                className="inline-flex items-center gap-2 rounded-lg px-[18px] py-[9px] text-[13px] font-bold transition-opacity hover:opacity-80"
+                className={cn(
+                  `inline-flex items-center gap-2 rounded-lg px-[18px] py-[9px] text-[13px] font-bold transition-opacity hover:opacity-80`,
+                  "bg-foreground dark:bg-[var(--brand)] text-[var(--background)]",
+                )}
                 style={{
-                  background: "var(--foreground)",
-                  color: "var(--background)",
                   letterSpacing: "-0.01em",
                 }}
               >
                 Read writing
+                <ArrIcon />
               </Link>
               <a
                 href="mailto:inheritedbimal@gmail.com"
@@ -201,7 +176,6 @@ export default function HomePage({ recentBlogs }: HomePageProps) {
             My Top 10 tracks on Spotify
           </p>
         </div>
-
         {tracksLoading ? (
           <div className="space-y-2">
             {Array.from({ length: 10 }).map((_, i) => (
@@ -219,7 +193,7 @@ export default function HomePage({ recentBlogs }: HomePageProps) {
                 href={track.songUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-[14px] rounded-lg px-[10px] py-[9px] mb-0.5 transition-colors hover:bg-accent"
+                className="flex items-center gap-[14px] rounded-lg px-1 sm:pb-[10px] py-[9px] mb-0.5 transition-colors hover:bg-accent"
               >
                 <span
                   className="w-[18px] flex-shrink-0 text-right text-[11px] text-muted-foreground"
@@ -254,41 +228,13 @@ export default function HomePage({ recentBlogs }: HomePageProps) {
             ))}
           </div>
         ) : null}
-
         {/* Now Playing inline widget */}
-        {nowPlayingData?.isPlaying && (
-          <div className="mt-[14px] flex items-center gap-[10px] rounded-[10px] border border-border p-[10px_14px] bg-card animate-fade-up">
-            <EqBars />
-            <div className="flex min-w-0 flex-1 items-center gap-[7px]">
-              <span className="flex-shrink-0 text-[11px] font-bold uppercase tracking-[0.07em] text-muted-foreground">
-                Now playing
-              </span>
-              <span className="text-muted-foreground flex-shrink-0">·</span>
-              <a
-                href={nowPlayingData.songUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="truncate text-[12px] font-semibold hover:underline"
-              >
-                {nowPlayingData.name}
-              </a>
-              <span className="flex-shrink-0 truncate text-[12px] text-muted-foreground">
-                — {nowPlayingData.artist}
-              </span>
-            </div>
-            <span
-              className="flex-shrink-0 flex items-center"
-              style={{ color: "#22c55e" }}
-            >
-              <SpotifyIcon />
-            </span>
-          </div>
-        )}
+        <NowPlaying data={nowPlayingData!} />
       </section>
 
       {/* Recent writing */}
-      <section className="border-t border-border py-10">
-        <div className="mb-5 flex items-baseline justify-between">
+      <section className="border-t border-border py-5">
+        <div className="mb-3 flex items-baseline justify-between">
           <p className="text-xs font-bold uppercase tracking-[0.08em] text-muted-foreground">
             Recent writing
           </p>
@@ -304,7 +250,7 @@ export default function HomePage({ recentBlogs }: HomePageProps) {
           <Link
             key={blog.slug}
             href={`/blogs/${blog.slug}`}
-            className="block border-b border-border pt-4 pb-2 px-2 cursor-pointer flex flex-col sm:flex-row item-center gap-3"
+            className="block border-none border-border pt-2 pb-0 px-0 cursor-pointer flex flex-col sm:flex-row item-center gap-3"
             style={{
               animation: `fadeUp 0.4s ${idx * 0.08}s ease both`,
             }}
@@ -329,7 +275,7 @@ export default function HomePage({ recentBlogs }: HomePageProps) {
       </section>
 
       {/* Contact banner */}
-      <section className="py-10 pb-20">
+      <section className="py-4 pb-20">
         <div className="flex flex-wrap items-center justify-between gap-5 rounded-[14px] p-[36px_32px] bg-gray-200 dark:bg-gray-800">
           <div>
             <h2

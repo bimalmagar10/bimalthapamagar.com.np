@@ -15,7 +15,6 @@ const Layout = ({ children }: LayoutProps) => {
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Header />
         {children}
-        <NowPlaying />
         <Footer />
       </div>
       <MobileNav />

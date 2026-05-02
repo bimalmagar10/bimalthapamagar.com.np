@@ -41,28 +41,32 @@ export function getMDXComponents(): MDXComponents {
       </h4>
     ),
     p: ({ children }) => (
-      <p className="text-base text-muted-foreground leading-7 mb-4">
+      <p className="text-[15px] text-muted-foreground leading-[1.8] mb-4">
         {children}
       </p>
     ),
     ul: ({ children }) => (
-      <ul className="list-disc list-inside mb-4 space-y-1 text-muted-foreground">
+      <ul className="list-disc list-inside mb-4 space-y-1 text-[15px] text-muted-foreground leading-[1.8]">
         {children}
       </ul>
     ),
     ol: ({ children }) => (
-      <ol className="list-decimal list-inside mb-4 space-y-1 text-muted-foreground">
+      <ol className="list-decimal list-inside mb-4 space-y-1 text-[15px] text-muted-foreground leading-[1.8]">
         {children}
       </ol>
     ),
-    li: ({ children }) => <li className="text-muted-foreground">{children}</li>,
+    li: ({ children }) => (
+      <li className="text-[15px] text-muted-foreground leading-[1.8]">
+        {children}
+      </li>
+    ),
     blockquote: ({ children }) => (
-      <blockquote className="border-l-4 border-blue-500 dark:border-blue-400 pl-4 italic my-4 text-muted-foreground bg-blue-50 dark:bg-blue-950/30 py-2 rounded-r">
+      <blockquote className="border-l-4 border-blue-500 dark:border-blue-400 pl-4 italic my-4 text-[15px] text-muted-foreground leading-[1.8] bg-blue-50 dark:bg-blue-950/30 py-2 rounded-r">
         {children}
       </blockquote>
     ),
     code: ({ children }) => (
-      <code className="bg-muted py-0.5 rounded text-sm font-mono text-foreground">
+      <code className="bg-muted py-0.5 rounded text-[15px] font-mono text-foreground">
         {children}
       </code>
     ),
@@ -70,7 +74,7 @@ export function getMDXComponents(): MDXComponents {
       const codeContent = extractTextContent(children);
       return (
         <div className="relative group my-4">
-          <pre className="bg-muted p-4 rounded-lg overflow-x-auto text-sm">
+          <pre className="bg-muted p-4 rounded-lg overflow-x-auto text-[15px]">
             {children}
           </pre>
           <CopyToClipboard code={codeContent} />
@@ -102,12 +106,14 @@ export function getMDXComponents(): MDXComponents {
       </div>
     ),
     th: ({ children }) => (
-      <th className="border border-border px-4 py-2 bg-muted font-semibold text-left">
+      <th className="border border-border px-4 py-2 bg-muted text-[15px] font-semibold text-left">
         {children}
       </th>
     ),
     td: ({ children }) => (
-      <td className="border border-border px-4 py-2">{children}</td>
+      <td className="border border-border px-4 py-2 text-[15px] leading-[1.8]">
+        {children}
+      </td>
     ),
     img: ({ src, alt }) => (
       <div className="my-4 mx-auto max-w-full">
@@ -146,26 +152,28 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       </h4>
     ),
     p: ({ children }) => (
-      <p className="text-base text-muted-foreground leading-7 mb-4">
+      <p className="text-[15px] text-muted-foreground leading-[1.8] mb-4">
         {children}
       </p>
     ),
     ul: ({ children }) => (
-      <ul className="list-disc list-inside space-y-2 mb-4 text-muted-foreground pl-4">
+      <ul className="list-disc list-inside space-y-2 mb-4 text-[15px] text-muted-foreground leading-[1.8] pl-4">
         {children}
       </ul>
     ),
     ol: ({ children }) => (
-      <ol className="list-decimal list-inside space-y-2 mb-4 text-muted-foreground pl-4">
+      <ol className="list-decimal list-inside space-y-2 mb-4 text-[15px] text-muted-foreground leading-[1.8] pl-4">
         {children}
       </ol>
     ),
-    li: ({ children }) => <li className="leading-7">{children}</li>,
+    li: ({ children }) => (
+      <li className="text-[15px] leading-[1.8]">{children}</li>
+    ),
     code: ({ children, className }) => {
       const isInline = !className;
       if (isInline) {
         return (
-          <code className="bg-gray-100 dark:bg-gray-800 px-1.5 py-0.5 rounded text-sm font-mono text-red-600 dark:text-red-400">
+          <code className="bg-gray-100 dark:bg-gray-800 px-1.5 py-0.5 rounded text-[15px] font-mono text-red-600 dark:text-red-400">
             {children}
           </code>
         );
@@ -176,7 +184,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       const codeContent = extractTextContent(children);
       return (
         <div className="relative group mb-4">
-          <pre className="bg-gray-100 dark:bg-gray-900 p-4 rounded-lg overflow-x-auto text-sm">
+          <pre className="bg-gray-100 dark:bg-gray-900 p-4 rounded-lg overflow-x-auto text-[15px]">
             {children}
           </pre>
           <CopyToClipboard code={codeContent} />
@@ -184,7 +192,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       );
     },
     blockquote: ({ children }) => (
-      <blockquote className="border-l-4 border-blue-500 dark:border-blue-400 pl-4 italic text-muted-foreground mb-4 bg-blue-50 dark:bg-blue-950/30 py-2 rounded-r">
+      <blockquote className="border-l-4 border-blue-500 dark:border-blue-400 pl-4 italic text-[15px] text-muted-foreground leading-[1.8] mb-4 bg-blue-50 dark:bg-blue-950/30 py-2 rounded-r">
         {children}
       </blockquote>
     ),
@@ -207,12 +215,12 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       <tr className="hover:bg-gray-50 dark:hover:bg-gray-800/50">{children}</tr>
     ),
     th: ({ children }) => (
-      <th className="border border-gray-300 dark:border-gray-700 px-4 py-2 text-left font-semibold text-foreground">
+      <th className="border border-gray-300 dark:border-gray-700 px-4 py-2 text-[15px] text-left font-semibold text-foreground">
         {children}
       </th>
     ),
     td: ({ children }) => (
-      <td className="border border-gray-300 dark:border-gray-700 px-4 py-2 text-muted-foreground">
+      <td className="border border-gray-300 dark:border-gray-700 px-4 py-2 text-[15px] text-muted-foreground leading-[1.8]">
         {children}
       </td>
     ),
