@@ -1,64 +1,80 @@
 ---
-title: 'How to integrate Spotify API to list Top Tracks and Currently Playing music in Next JS (14.0.1) App router'
-date: '2023-11-14'
-time: '08:00:20'
+title: "How to integrate Spotify API to list Top Tracks and Currently Playing music in Next JS (14.0.1) App router"
+date: "2023-11-14"
+time: "08:00:20"
 category: "Tech"
 shortTheme: "Want to show your top ten Spotify tracks and now playing songs on your portfolio website built with the latest Next.js App router (v14.0.1)? This is the gudie for you that will walk you through the process, starting from scratch, to showcase both your currently playing song and the top 10 tracks you've been listening to on Spotify"
 ---
 
 You need to follow these step by step guide in order to integrate Spotify's API.
-<br/>
+
+<br />
 
 ## 1. CREATE AN APPLICATION
-<br/>
-Firstly, you need to authenticate yourself in order to get access for fetching the Spotify's API.And, for that you need to create an spotify application.
-Here are the steps:
-<br/>
+
+<br />
+Firstly, you need to authenticate yourself in order to get access for fetching
+the Spotify's API.And, for that you need to create an spotify application. Here
+are the steps:
+<br />
 
 - Go to your [Spotify developer dashboard](https://developer.spotify.com/) and log in to your account.
 - Then, click on **Create app** button just below the navbar on top right corner of your dashboard.
-- Next, fill all the fields, App name, App description,Website and on **Redirect URIs** field, type `http://localhost:3000` as your redirect URI.
+- Next, fill all the fields, App name, App description,Website and on **Redirect URIs** field, type `http://127.0.0.1:3000` as your redirect URI.
 - Then click on **Save**.You will be redirected to your newly created app now.
 - Next, click on **Settings** on top right corner, just below the navbar.There you will get your `client_id` and just below that you will see **View client secret** button.
 - Now, click on that button and save both `client_id` and `client_secret`.Both will be needed later.
 
-<br/>
-**Congratulations!**, now you have all credentials in order to authenticate the Spotify's APIs.
-<br/>
+<br />
+**Congratulations!**, now you have all credentials in order to authenticate the
+Spotify's APIs.
+<br />
 
 ## 2. AUTHORIZATION
-<br/>
-Now, it's time to authenticate the Spotify API using the previously saved credentials. Spotify offers various [Authorization](https://developer.spotify.com/documentation/web-api/concepts/authorization) methods, and for now, we'll be utilizing the 
-[Authorization Code Flow](https://developer.spotify.com/documentation/web-api/tutorials/code-flow).
-<br/>
 
-Initially, our application needs to be authorized with specific 
-[scopes](https://developer.spotify.com/documentation/web-api/concepts/scopes). Scopes 
-serve the purpose of granting confidence to share only the selected information and nothing beyond that. 
-For instance, in my application, I only intend to retrieve the top ten tracks and the currently playing song 
-from Spotify's Developer API. To achieve this, I must select the scopes `user-top-read` and `user-read-currently-playing` 
+<br />
+Now, it's time to authenticate the Spotify API using the previously saved
+credentials. Spotify offers various
+[Authorization](https://developer.spotify.com/documentation/web-api/concepts/authorization)
+methods, and for now, we'll be utilizing the [Authorization Code
+Flow](https://developer.spotify.com/documentation/web-api/tutorials/code-flow).
+<br />
+
+Initially, our application needs to be authorized with specific
+[scopes](https://developer.spotify.com/documentation/web-api/concepts/scopes). Scopes
+serve the purpose of granting confidence to share only the selected information and nothing beyond that.
+For instance, in my application, I only intend to retrieve the top ten tracks and the currently playing song
+from Spotify's Developer API. To achieve this, I must select the scopes `user-top-read` and `user-read-currently-playing`
 from the [scopes](https://developer.spotify.com/documentation/web-api/concepts/scopes) list respectively.
 Here's an example of the URL for authorization with these scopes.
-<br/>
+
+<br />
 
 ```bash
-https://accounts.spotify.com/authorize?client_id=<client_id_you_saved_before>&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A3000&scope=user-read-currently-playing%20user-top-read
+https://accounts.spotify.com/authorize?client_id=ba3edd760c5a4352a15f39378104392d&response_type=code&redirect_uri=http%3A%2F%2F127.0.0.1%3A3000&scope=user-read-currently-playing%20user-top-read
 ```
 
-Now, copy the provided URL and paste it into your browser's address bar. Ensure that your `localhost:3000` is running.
-is actively running. After pressing enter, you'll be redirected to  `http://localhost:3000?code=` , where you will receive
+Now, copy the provided URL and paste it into your browser's address bar. Ensure that your `127.0.0.1:3000` is running.
+is actively running. After pressing enter, you'll be redirected to `http://127.0.0.1:3000?code=` , where you will receive
 a code as a query parameter. Here's an example of the URL you can expect at this stage.
 
 ```bash
-http://localhost:3000/?code=AQB3x..............................
+http://127.0.0.1:3000/?code=AQB3x..............................
 ```
+
 Now, save this code.You will need it later for retrieving your `refresh_token`.
+
 <br/>
 Next, you will need to generate the `refresh_token` in order to revoke the `access_token`--which expires frequently.For that
 open up your terminal and then type the following code.
 <br/>
 ```bash
-curl -d client_id=<your_client_id> -d client_secret=<your_client_secret> -d grant_type=authorization_code -d code=<code_that_you_saved_from_redirected_uri> -d redirect_uri=http://localhost:3000 https://accounts.spotify.com/api/token
+curl -X POST https://accounts.spotify.com/api/token \
+  -d client_id=<your_client_id> \
+  -d client_secret=<your_client_secret> \
+  -d grant_type=authorization_code \
+  -d code=<code_that_you_saved_from_redirected_uri> \
+  -d redirect_uri=http://127.0.0.1:3000
 ```
 <br/>
 You now will get the JSON response in the following format.
@@ -90,9 +106,9 @@ SPOTIFY_REFRESH_TOKEN=
 
 Secondly, let's create a **`lib/spotify.js`** , to look more organized folder structure, where we will be writing the API fetching
 logic. Your code should look like this.
-<br/>
-```javascript:lib/spotify.js
-import queryString from 'query-string';
+
+<br />
+```javascript:lib/spotify.js import queryString from 'query-string';
 
 const client_id = process.env.SPOTIFY_CLIENT_ID;
 const client_secret = process.env.SPOTIFY_CLIENT_SECRET;
@@ -104,64 +120,64 @@ const TOP_TRACKS_ENDPOINT = `https://api.spotify.com/v1/me/top/tracks`;
 
 //After the access_token expires, getting new access_token with refresh_token we obtained before
 const getAccessToken = async () => {
-	try {
-		const response = await fetch(TOKEN_ENDPOINT,{
-			method:'POST',
-			headers:{
-				Authorization:`Basic ${basic}`,
-				'Content-Type':'application/x-www-form-urlencoded'
-			},
-			body:queryString.stringify({
-				grant_type:'refresh_token',
-				refresh_token
-			})
-		});;
-		const responseData = await response.json();
-		return responseData;
-	} catch(err){
-		throw new Error(JSON.stringify(err))
-	}
+try {
+const response = await fetch(TOKEN_ENDPOINT,{
+method:'POST',
+headers:{
+Authorization:`Basic ${basic}`,
+'Content-Type':'application/x-www-form-urlencoded'
+},
+body:queryString.stringify({
+grant_type:'refresh_token',
+refresh_token
+})
+});;
+const responseData = await response.json();
+return responseData;
+} catch(err){
+throw new Error(JSON.stringify(err))
+}
 
 };
 
 //Get currently playing song
 export const getNowPlaying = async () => {
-	try {
-		const {access_token} = await getAccessToken();
+try {
+const {access_token} = await getAccessToken();
 
-		return fetch(NOW_PLAYING_ENDPOINT,{
-	  		headers:{
-	  			Authorization:`Bearer ${access_token}`
-	  		}
-  		});
-	} catch(err){
-		throw new Error(JSON.stringify(err))
-	}
+    	return fetch(NOW_PLAYING_ENDPOINT,{
+      		headers:{
+      			Authorization:`Bearer ${access_token}`
+      		}
+
+});
+} catch(err){
+throw new Error(JSON.stringify(err))
+}
 };
 
 //Get top tracks played on your Spotify account
 export const getTopTracks = async () => {
-	try {
-		const {access_token} = await getAccessToken();
-		
-		return fetch(TOP_TRACKS_ENDPOINT,{
-			headers:{
-				Authorization:`Bearer ${access_token}`
-			}
-		});
-	} catch(err){
-		throw new Error(JSON.stringify(err))
-	}
+try {
+const {access_token} = await getAccessToken();
+return fetch(TOP_TRACKS_ENDPOINT,{
+headers:{
+Authorization:`Bearer ${access_token}`
+}
+});
+} catch(err){
+throw new Error(JSON.stringify(err))
+}
 };
 
-```
+````
 <br/>
 
-## 4.Creating an API route 
+## 4.Creating an API route
 <br/>
 
 **Cheers** 🥂!, Everything is setup. Now at last we need to setup two api routes in order to send the requests
-and get response from the spotify's API. For that you have to create two files **`app/api/now-playing/route.js`** and **`app/api/top-tracks/route.js`** 
+and get response from the spotify's API. For that you have to create two files **`app/api/now-playing/route.js`** and **`app/api/top-tracks/route.js`**
 in your application.The equivalent code for those two endpoints looks like this.
 
 <br/>
@@ -179,7 +195,7 @@ export async function GET(request) {
     if(response?.status === 204 || response?.status > 400) {
         return NextResponse.json({isPlaying:false},{status:200});
     }
-    
+
     try {
         const song = await response.json();
         console.log('song',song?.item?.name);
@@ -189,7 +205,7 @@ export async function GET(request) {
         const album = song?.item?.album.name;
         const albumImageUrl = song?.item?.album.images[0].url;
         const songUrl = song?.item?.album.external_urls.spotify;
-    
+
         return NextResponse.json({
             isPlaying,
             album,
@@ -208,8 +224,9 @@ export async function GET(request) {
         });
     }
 }
-```
-<br/>
+````
+
+<br />
 
 ```javascript:app/api/top-tracks/route.js
 import { NextResponse } from 'next/server'
@@ -242,34 +259,40 @@ export async function GET(request) {
      }
 }
 ```
-<br/>
-**Note:** In the provided code, you'll notice two lines as shown below 👇. You can choose either of them; both are optional, 
-and you can select the one you prefer. This flexibility exists because, by default, the Next.js App router caches 
-routes. This means that if the same endpoint is accessed from the client side, the router utilizes the cached response.
-If you don't use these options, your "now-playing" endpoint may not update, resulting in the same cached response 
-being displayed and causing a failure to show the currently playing music in the UI.Additinally, feel free to modify the
-JSON response from those endpoints as per your need or demand.
+
+<br />
+**Note:** In the provided code, you'll notice two lines as shown below 👇. You
+can choose either of them; both are optional, and you can select the one you
+prefer. This flexibility exists because, by default, the Next.js App router
+caches routes. This means that if the same endpoint is accessed from the client
+side, the router utilizes the cached response. If you don't use these options,
+your "now-playing" endpoint may not update, resulting in the same cached
+response being displayed and causing a failure to show the currently playing
+music in the UI.Additinally, feel free to modify the JSON response from those
+endpoints as per your need or demand.
 
 ```javascript
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 //-----------OR----------------------//
 export const revalidate = 0;
 ```
-<br/>
+
+<br />
 
 ## 5.Conclusion
-<br/>
 
+<br />
 
-Everything is complete! Now it's time to retrieve data from the two endpoints you've established. This is the way to 
-showcase your top ten tracks and currently playing songs on your Next.js website, allowing users to see what you're 
+Everything is complete! Now it's time to retrieve data from the two endpoints you've established. This is the way to
+showcase your top ten tracks and currently playing songs on your Next.js website, allowing users to see what you're
 listening to.
 
-**POV:**  You have the option to utilize [swr](https://swr.vercel.app/), [react query](https://tanstack.com/query/v3/) or 
-official [fetch api](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) or client-side data fetching in 
-[React.js](https://react.dev/). For simplicity, I'll be using [swr](https://swr.vercel.app/). Here's a code snippet 
+**POV:** You have the option to utilize [swr](https://swr.vercel.app/), [react query](https://tanstack.com/query/v3/) or
+official [fetch api](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) or client-side data fetching in
+[React.js](https://react.dev/). For simplicity, I'll be using [swr](https://swr.vercel.app/). Here's a code snippet
 demonstrating how to implement SWR for this particular use case.
-<br/>
+
+<br />
 
 ```javascript:YourClientComponent.js
 import useSWR from 'swr';
@@ -293,7 +316,8 @@ export default YourClientComponent;
 
 ```
 
-<br/>
-Consequently, you can integrate Spotify's API like as such in Next.js APP Router.Follow me on 👉 **[GitHub](https://github.com/bimalmagar10)**.
-<br/>
+<br />
+Consequently, you can integrate Spotify's API like as such in Next.js APP
+Router.Follow me on 👉 **[GitHub](https://github.com/bimalmagar10)**.
+<br />
 **Keep coding, Keep learning and Keep listening music** 🎸.😜😜
