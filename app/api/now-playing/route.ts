@@ -1,71 +1,72 @@
-import { NextResponse, NextRequest } from "next/server";
-import { getNowPlaying } from "../../../lib/spotify";
-import { SpotifyNowPlayingResponse, SpotifyArtist } from "../../../lib/types";
+import { NextResponse } from "next/server";
+import {
+  getLargestLastFmImage,
+  getLastFmAlbumImage,
+  getLastFmNowPlaying,
+  LastFmConfigError,
+} from "@/lib/lastfm";
 
-export const dynamic = "force-dynamic";
-//eslint-disable-next-line @typescript-eslint/no-unused-vars
-export async function GET(_request: NextRequest) {
-  const response = await getNowPlaying();
-  if (response?.status === 204 || response?.status > 400) {
-    return NextResponse.json(
-      { isPlaying: false },
-      {
-        status: 200,
-        headers: {
-          "Cache-Control":
-            "no-store, no-cache, must-revalidate, proxy-revalidate",
-          Pragma: "no-cache",
-          Expires: "0",
-        },
-      }
-    );
-  }
+export const revalidate = 5;
 
+export async function GET() {
   try {
-    const song: SpotifyNowPlayingResponse = await response.json();
-    const isPlaying = song?.is_playing;
-    const name = song?.item?.name;
-    const artist = song?.item?.artists
-      .map((artist: SpotifyArtist) => artist.name)
-      .join(", ");
-    const album = song?.item?.album.name;
-    const albumImageUrl = song?.item?.album.images[0].url;
-    const songUrl = song?.item?.external_urls.spotify;
+    const song = await getLastFmNowPlaying();
+    let albumImageUrl = song
+      ? getLargestLastFmImage(song.image)
+      : undefined;
+
+    if (song && !albumImageUrl) {
+      try {
+        albumImageUrl = await getLastFmAlbumImage(
+          song.artist["#text"],
+          song.name,
+        );
+      } catch (error) {
+        console.warn(
+          `Unable to load album art for ${song.artist["#text"]} - ${song.name}:`,
+          error instanceof Error ? error.message : error,
+        );
+      }
+    }
 
     return NextResponse.json(
-      {
-        isPlaying,
-        album,
-        albumImageUrl,
-        name,
-        songUrl,
-        artist,
-      },
+      song
+        ? {
+            isPlaying: true,
+            album: song.album["#text"],
+            albumImageUrl: albumImageUrl ?? "",
+            name: song.name,
+            songUrl: song.url,
+            artist: song.artist["#text"],
+          }
+        : { isPlaying: false },
       {
         status: 200,
         headers: {
-          "Cache-Control":
-            "no-store, no-cache, must-revalidate, proxy-revalidate",
-          Pragma: "no-cache",
-          Expires: "0",
+          "Cache-Control": "public, s-maxage=5",
         },
-      }
+      },
     );
-    //eslint-disable-next-line @typescript-eslint/no-unused-vars
-  } catch (_err) {
+  } catch (error) {
+    const isConfigError = error instanceof LastFmConfigError;
+    console.error(
+      "Unable to load Last.fm now playing:",
+      error instanceof Error ? error.message : error,
+    );
+
     return NextResponse.json(
       {
         isPlaying: false,
+        error: isConfigError
+          ? "Last.fm now playing is not configured."
+          : "Now playing is temporarily unavailable.",
       },
       {
-        status: 200,
+        status: isConfigError ? 503 : 502,
         headers: {
-          "Cache-Control":
-            "no-store, no-cache, must-revalidate, proxy-revalidate",
-          Pragma: "no-cache",
-          Expires: "0",
+          "Cache-Control": "no-store",
         },
-      }
+      },
     );
   }
 }

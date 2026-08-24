@@ -13,7 +13,7 @@ This is my personal modern, performant personal portfolio built with Next.js 15 
 - **🌗 Dark Mode** - Seamless theme switching with next-themes
 - **💻 Syntax Highlighting** - Beautiful code blocks with highlight.js and rehype-highlight
 - **📋 Copy to Clipboard** - One-click code copying with toast notifications
-- **🎵 Spotify Integration** - Display currently playing track and top tracks via Spotify API
+- **🎵 Last.fm Integration** - Display currently playing and top tracks from scrobbled listening history
 - **📱 Fully Responsive** - Mobile-first design with smooth animations
 - **⚡ Turbopack** - Lightning-fast development with Next.js Turbopack
 - **🔍 SEO Optimized** - Dynamic metadata generation for all pages
@@ -86,10 +86,11 @@ This is my personal modern, performant personal portfolio built with Next.js 15 
    Create a `.env.local` file in the root directory:
 
    ```env
-   # Spotify API Credentials (optional)
-   SPOTIFY_CLIENT_ID=your_spotify_client_id
-   SPOTIFY_CLIENT_SECRET=your_spotify_client_secret
-   SPOTIFY_REFRESH_TOKEN=your_spotify_refresh_token
+   # Last.fm top tracks and currently-playing widget
+   LASTFM_USERNAME=your_lastfm_username
+   LASTFM_API_KEY=your_lastfm_api_key
+   # Optional: 7day, 1month, 3month, 6month, 12month, or overall
+   LASTFM_TOP_TRACKS_PERIOD=6month
    ```
 
 4. **Run the development server**
@@ -116,7 +117,7 @@ This is my personal modern, performant personal portfolio built with Next.js 15 
 ```
 bimalthapamagar.com.np/
 ├── app/                      # Next.js App Router
-│   ├── api/                  # API routes (Spotify integration)
+│   ├── api/                  # API routes (Last.fm integration)
 │   ├── blogs/                # Blog pages
 │   ├── snippets/             # Code snippets pages
 │   ├── about-me/             # About page
@@ -130,7 +131,7 @@ bimalthapamagar.com.np/
 ├── snippets/                 # Code snippet MDX files
 ├── lib/                      # Utility functions
 │   ├── mdxApi.ts             # MDX processing utilities
-│   ├── spotify.ts            # Spotify API integration
+│   ├── lastfm.ts             # Last.fm API integration
 │   └── utils.ts              # Helper functions
 ├── styles/                   # Global styles
 ├── public/                   # Static assets

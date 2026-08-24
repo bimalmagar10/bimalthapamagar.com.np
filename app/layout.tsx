@@ -10,6 +10,7 @@ import Footer from "@/components/Footer";
 import { HighlightTheme } from "@/components/HighlightTheme";
 import { Toaster } from "sonner";
 import { ScrollProgress } from "@/components/scroll-progress";
+import GlobalNowPlaying from "@/components/global-now-playing";
 
 export const metadata: Metadata = {
   title: "Bimal Thapa Magar",
@@ -68,8 +69,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <div className="min-h-screen bg-background text-foreground flex flex-col">
             <Header />
             <main className="flex-1">{children}</main>
+            <GlobalNowPlaying />
             <Footer />
-            {/* <NowPlaying /> */}
           </div>
           <MobileNav />
           <Toaster position="top-center" />

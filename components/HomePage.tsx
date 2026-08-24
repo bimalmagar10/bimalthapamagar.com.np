@@ -14,21 +14,8 @@ interface Track {
   artist: string;
   imageUrl: string;
   songUrl: string;
-  duration_ms: number;
+  playcount: number;
 }
-
-function formatDuration(ms: number): string {
-  const totalSeconds = Math.floor(ms / 1000);
-  const minutes = Math.floor(totalSeconds / 60);
-  const seconds = totalSeconds % 60;
-  return `${minutes}:${seconds.toString().padStart(2, "0")}`;
-}
-
-const SpotifyIcon = () => (
-  <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z" />
-  </svg>
-);
 
 const MailIcon = () => (
   <svg
@@ -154,14 +141,11 @@ export default function HomePage({ recentBlogs }: HomePageProps) {
         </div>
       </section>
 
-      {/* Spotify top tracks */}
+      {/* Last.fm top tracks */}
       <section className="border-t border-border py-10">
-        <div className="mb-5 flex items-center gap-[7px]">
-          <span style={{ color: "#22c55e" }}>
-            <SpotifyIcon />
-          </span>
+        <div className="mb-5">
           <p className="text-sm font-bold uppercase tracking-[0.08em] text-muted-foreground">
-            My Top 10 tracks on Spotify
+            My Top 10 Tracks
           </p>
         </div>
         {showTracksSkeleton ? (
@@ -177,7 +161,7 @@ export default function HomePage({ recentBlogs }: HomePageProps) {
           <div>
             {tracks.map((track, i) => (
               <a
-                key={+i}
+                key={track.id}
                 href={track.songUrl}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -189,14 +173,19 @@ export default function HomePage({ recentBlogs }: HomePageProps) {
                 >
                   {i + 1}
                 </span>
-                <div className="h-[34px] w-[34px] flex-shrink-0 overflow-hidden rounded-[5px]">
-                  <Image
-                    src={track.imageUrl || "/placeholder.svg"}
-                    alt={track.title}
-                    width={34}
-                    height={34}
-                    className="h-full w-full object-cover"
-                  />
+                <div className="flex h-[34px] w-[34px] flex-shrink-0 items-center justify-center overflow-hidden rounded-[5px] bg-muted text-sm text-muted-foreground">
+                  {track.imageUrl ? (
+                    <Image
+                      src={track.imageUrl}
+                      alt={track.title}
+                      width={34}
+                      height={34}
+                      sizes="34px"
+                      className="h-full w-full object-cover"
+                    />
+                  ) : (
+                    <span aria-hidden="true">♪</span>
+                  )}
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="truncate text-[15px] font-semibold">
@@ -210,14 +199,17 @@ export default function HomePage({ recentBlogs }: HomePageProps) {
                   className="flex-shrink-0 text-[11px] text-muted-foreground"
                   style={{ fontFamily: "var(--font-jetbrains)" }}
                 >
-                  {formatDuration(track.duration_ms)}
+                  {track.playcount > 0
+                    ? `${track.playcount.toLocaleString()} plays`
+                    : null}
                 </span>
               </a>
             ))}
           </div>
         ) : null}
-        {/* Now Playing inline widget */}
-        <NowPlaying />
+        <div className="mt-[14px]">
+          <NowPlaying />
+        </div>
       </section>
 
       {/* Recent writing */}

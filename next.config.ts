@@ -4,7 +4,7 @@ import { type NextConfig } from "next";
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   compiler: {
-    removeConsole: true,
+    removeConsole: false,
   },
   transpilePackages: ["next-mdx-remote"],
   experimental: {
@@ -24,6 +24,21 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "i.scdn.co",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "lastfm.freetls.fastly.net",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "lastfm-img.freetls.fastly.net",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "lastfm-img2.akamaized.net",
         pathname: "/**",
       },
     ],
